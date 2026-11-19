@@ -1,0 +1,300 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Team Sparrow – Performance Dashboard</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237a3f1d'/%3E%3Cpath d='M12 38c4-12 16-18 28-14l8-6-2 10c3 3 4 8 2 12-6 6-16 8-24 4l-8 4z' fill='%23f6e3cc'/%3E%3Ccircle cx='41' cy='28' r='2' fill='%232a1a10'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#faf5ef;--card:#fff;--ink:#2a1a10;--mut:#7a6556;--line:#eadccd;--p1:#7a3f1d;--p2:#b4691f;--p3:#e0a76b;--soft:#f6e9db;--g:#2e8b57;--w:#d98e04;--c:#c0392b;--gold:#e3a72f;--sh:0 1px 3px rgba(60,30,10,.08);color-scheme:light}
+:root[data-theme=dark]{--bg:#17100b;--card:#231810;--ink:#f3e7da;--mut:#b79f8a;--line:#3a2a1d;--p1:#d89a5b;--p2:#c07a36;--p3:#8a5a2c;--soft:#2f2016;--g:#4cc38a;--w:#f0b43c;--c:#ee6a5a;--sh:0 1px 3px rgba(0,0,0,.4);color-scheme:dark}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#17100b;--card:#231810;--ink:#f3e7da;--mut:#b79f8a;--line:#3a2a1d;--p1:#d89a5b;--p2:#c07a36;--p3:#8a5a2c;--soft:#2f2016;--g:#4cc38a;--w:#f0b43c;--c:#ee6a5a;--sh:0 1px 3px rgba(0,0,0,.4);color-scheme:dark}}
+*{box-sizing:border-box}html,body{margin:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;display:flex;min-height:100vh}
+#splash{position:fixed;inset:0;background:linear-gradient(135deg,#4a230f,#9a5521);z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;transition:opacity .6s .9s,visibility 0s 1.5s}
+#splash svg{width:96px;height:96px;animation:pop .8s ease both}#splash h1{margin:14px 0 0;font-size:26px;letter-spacing:.5px;animation:pop .8s .2s ease both}#splash.out{opacity:0;visibility:hidden}
+@keyframes pop{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:none}}
+nav{width:230px;background:linear-gradient(180deg,#5a2c12,#8a4a1e);color:#fff;padding:14px 10px;position:sticky;top:0;height:100vh;overflow:auto;flex:none;transition:transform .25s}
+nav .br{display:flex;gap:10px;align-items:center;padding:4px 8px 14px;font-weight:700;font-size:16px}nav .br svg{width:38px;height:38px;flex:none}
+nav button{display:block;width:100%;text-align:left;background:none;border:0;color:#f6e3cc;padding:9px 12px;border-radius:8px;font:inherit;cursor:pointer;margin:2px 0;transition:background .2s,transform .2s}
+nav button:hover{background:rgba(255,255,255,.12);transform:translateX(2px)}nav button.on{background:rgba(255,255,255,.2);color:#fff;font-weight:600;box-shadow:inset 3px 0 var(--gold)}
+main{flex:1;min-width:0;padding:16px 20px 40px}
+header{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
+header h2{margin:0;font-size:22px}.stamp{color:var(--mut);font-size:12px}
+#menu{display:none}
+.btn{position:relative;overflow:hidden;border:0;border-radius:8px;padding:8px 14px;font:inherit;cursor:pointer;background:linear-gradient(135deg,var(--p1),var(--p2));color:#fff;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(120,60,20,.3)}.btn.sec{background:var(--soft);color:var(--ink);border:1px solid var(--line)}
+.rip{position:absolute;border-radius:50%;background:rgba(255,255,255,.5);transform:scale(0);animation:rp .6s linear;pointer-events:none}@keyframes rp{to{transform:scale(4);opacity:0}}
+.sec{animation:fi .4s ease both}@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));margin-bottom:14px}
+.g2{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-bottom:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:var(--sh);transition:transform .2s,box-shadow .2s;min-width:0}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(80,40,10,.12)}
+.tile .l{color:var(--mut);font-size:12px}.tile b{display:block;font-size:24px;color:var(--p1);margin-top:2px}.tile small{color:var(--mut);font-size:11px}
+h3{margin:0 0 10px;font-size:15px;color:var(--p1)}
+.bar{height:10px;background:var(--soft);border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--p1),var(--p3));border-radius:6px;transition:width 1s ease}
+.row{display:flex;align-items:center;gap:8px;margin:7px 0}.row span:first-child{width:130px;flex:none;font-size:12px}.row .bar{flex:1}.row em{width:48px;text-align:right;font-style:normal;font-size:12px}
+.pill{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:600;white-space:nowrap}
+.pg{background:color-mix(in srgb,var(--g) 18%,transparent);color:var(--g)}.pw{background:color-mix(in srgb,var(--w) 20%,transparent);color:var(--w)}.pc{background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c)}.pn{background:var(--soft);color:var(--mut)}
+.mx td:first-child,.mx th:first-child{position:sticky;left:0;background:var(--card);z-index:1}.mx th:first-child{background:var(--soft)}.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{background:var(--soft);color:var(--p1);cursor:pointer;position:sticky;top:0;user-select:none}tr:hover td{background:color-mix(in srgb,var(--soft) 60%,transparent)}
+.tb{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}input,select{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font:inherit;max-width:100%}
+.aw{display:flex;gap:10px;align-items:center}.aw .ic{font-size:26px}.gold{color:var(--gold)}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.cal div{border-radius:8px;padding:6px 2px;text-align:center;font-size:12px;border:1px solid var(--line)}.cal .P{background:color-mix(in srgb,var(--g) 18%,transparent)}.cal .A{background:color-mix(in srgb,var(--c) 20%,transparent)}.cal .O{background:var(--soft);color:var(--mut)}
+svg.ch{width:100%;height:auto;display:block}.dr{stroke-dasharray:1200;stroke-dashoffset:1200;animation:dw 1.4s ease forwards}@keyframes dw{to{stroke-dashoffset:0}}
+#modal{position:fixed;inset:0;background:rgba(20,10,5,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}#modal.on{display:flex}#modal .card{width:min(520px,100%);max-height:90vh;overflow:auto}
+.warn{color:var(--w);font-size:12px}.err{color:var(--c);font-weight:600}
+@media(max-width:800px){nav{position:fixed;z-index:40;transform:translateX(-105%);left:0;top:0}nav.on{transform:none}#menu{display:inline-block}main{padding:12px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.dr{stroke-dashoffset:0}#splash{display:none}}
+</style></head><body>
+<div id="splash"><svg viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#fff" fill-opacity=".14"/><path d="M12 38c4-12 16-18 28-14l8-6-2 10c3 3 4 8 2 12-6 6-16 8-24 4l-8 4z" fill="#f6e3cc"/><circle cx="41" cy="28" r="2" fill="#2a1a10"/></svg><h1>Team Sparrow</h1></div>
+<nav id="nav"><div class="br"><svg viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#fff" fill-opacity=".16"/><path d="M12 38c4-12 16-18 28-14l8-6-2 10c3 3 4 8 2 12-6 6-16 8-24 4l-8 4z" fill="#f6e3cc"/><circle cx="41" cy="28" r="2" fill="#2a1a10"/></svg><span>Team Sparrow</span></div><div id="links"></div></nav>
+<main><header><div style="display:flex;gap:8px;align-items:center"><button class="btn sec" id="menu" data-a="menu">☰</button><h2 id="title"></h2></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sec" data-a="theme">◐ Theme</button><button class="btn" id="upb" data-a="up">Update Data</button></div></header><div class="stamp" id="stamp"></div><div id="view"></div></main>
+<div id="modal"><div class="card" id="mbody"></div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+const Decrypt=(()=>{
+const u32=(b,o)=>b[o]|b[o+1]<<8|b[o+2]<<16|b[o+3]<<24>>>0;
+function cfb(b){const dv=new DataView(b.buffer,b.byteOffset,b.byteLength);const ss=1<<dv.getUint16(30,true),ms=1<<dv.getUint16(32,true);
+ const nfat=dv.getUint32(44,true),dir0=dv.getUint32(48,true),cut=dv.getUint32(56,true),mf=dv.getUint32(60,true);
+ const sec=i=>b.subarray(512+i*ss,512+(i+1)*ss);
+ const difat=[];for(let i=0;i<109;i++){const v=dv.getUint32(76+i*4,true);if(v<0xFFFFFFFA)difat.push(v)}
+ let ds=dv.getUint32(68,true),nd=dv.getUint32(72,true);while(nd--&&ds<0xFFFFFFFA){const s=sec(ds),d=new DataView(s.buffer,s.byteOffset,ss);for(let i=0;i<ss/4-1;i++){const v=d.getUint32(i*4,true);if(v<0xFFFFFFFA)difat.push(v)}ds=d.getUint32(ss-4,true)}
+ const fat=[];difat.slice(0,nfat).forEach(i=>{const s=sec(i),d=new DataView(s.buffer,s.byteOffset,ss);for(let j=0;j<ss/4;j++)fat.push(d.getUint32(j*4,true))});
+ const chain=(s,tab)=>{const r=[];while(s<0xFFFFFFFA&&r.length<1e6){r.push(s);s=tab[s]}return r};
+ const rd=s=>{const ch=chain(s,fat),o=new Uint8Array(ch.length*ss);ch.forEach((c,i)=>o.set(sec(c),i*ss));return o};
+ const dir=rd(dir0),ents=[];for(let i=0;i<dir.length/128;i++){const e=dir.subarray(i*128,i*128+128),l=e[64]|e[65]<<8;let n='';for(let j=0;j<l/2-1;j++)n+=String.fromCharCode(e[j*2]|e[j*2+1]<<8);ents.push({n,t:e[66],s:u32(e,116),z:u32(e,120)})}
+ const root=ents[0],mini=rd(root.s);let mfat=[];if(mf<0xFFFFFFFA){const m=rd(mf),d=new DataView(m.buffer);for(let i=0;i<m.length/4;i++)mfat.push(d.getUint32(i*4,true))}
+ return n=>{const e=ents.find(x=>x.n===n&&x.t===2);if(!e)return null;if(e.z<cut){const ch=chain(e.s,mfat),o=new Uint8Array(ch.length*ms);ch.forEach((c,i)=>o.set(mini.subarray(c*ms,(c+1)*ms),i*ms));return o.subarray(0,e.z)}return rd(e.s).subarray(0,e.z)}}
+const AL={SHA1:'SHA-1',SHA256:'SHA-256',SHA384:'SHA-384',SHA512:'SHA-512'};
+const cat=(...a)=>{const o=new Uint8Array(a.reduce((s,x)=>s+x.length,0));let p=0;a.forEach(x=>{o.set(x,p);p+=x.length});return o};
+const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+const le=i=>new Uint8Array([i&255,i>>8&255,i>>16&255,i>>>24]);
+async function decrypt(bytes,pw,prog){
+ const sub=crypto.subtle;
+ if(!(bytes[0]===0xD0&&bytes[1]===0xCF)){return{bytes,encrypted:false}}
+ const get=cfb(bytes),info=get('EncryptionInfo'),pkg=get('EncryptedPackage');
+ if(!info||!pkg){const e=new Error('File is not a valid Excel workbook.');e.code='layout';throw e}
+ if(info[0]!==4||info[2]!==4&&info[2]!==3){const e=new Error('Unsupported encryption type (only Excel 2010+ password encryption is supported).');e.code='layout';throw e}
+ const xs=new TextDecoder().decode(info.subarray(8)),tag=n=>{const m=xs.match(new RegExp('<([a-zA-Z]+:)?'+n+'[ \t\r\n][^>]*>'))[0];return{getAttribute:a=>(m.match(new RegExp('[ \t\r\n]'+a+'="([^"]*)"'))||[])[1]}};
+ const kd=tag('keyData'),ek=tag('encryptedKey');
+ const H=AL[ek.getAttribute('hashAlgorithm')],hash=async d=>new Uint8Array(await sub.digest(H,d));
+ const salt=b64(ek.getAttribute('saltValue')),spin=+ek.getAttribute('spinCount'),kb=ek.getAttribute('keyBits')/8,bs=+ek.getAttribute('blockSize');
+ const pwb=new Uint8Array(pw.length*2);for(let i=0;i<pw.length;i++){pwb[i*2]=pw.charCodeAt(i)&255;pwb[i*2+1]=pw.charCodeAt(i)>>8}
+ let h=await hash(cat(salt,pwb));for(let i=0;i<spin;i++){h=await hash(cat(le(i),h));if(prog&&i%20000===0)prog(i/spin)}
+ const aes=async(key,iv,data)=>{const k=await sub.importKey('raw',key,'AES-CBC',false,['decrypt']);const pad=new Uint8Array(await sub.encrypt({name:'AES-CBC',iv:data.subarray(data.length-16)},await sub.importKey('raw',key,'AES-CBC',false,['encrypt']),new Uint8Array(0)));
+  return new Uint8Array(await sub.decrypt({name:'AES-CBC',iv},k,cat(data,pad)))};
+ const dk=async bk=>{const f=await hash(cat(h,bk));const o=new Uint8Array(kb).fill(0x36);o.set(f.subarray(0,kb));return o};
+ const vin=await aes(await dk(new Uint8Array([0xfe,0xa7,0xd2,0x76,0x3b,0x4b,0x9e,0x79])),salt.subarray(0,16),b64(ek.getAttribute('encryptedVerifierHashInput')));
+ const vh=await aes(await dk(new Uint8Array([0xd7,0xaa,0x0f,0x6d,0x30,0x61,0x34,0x4e])),salt.subarray(0,16),b64(ek.getAttribute('encryptedVerifierHashValue')));
+ const chk=await hash(vin.subarray(0,+ek.getAttribute('saltSize')));
+ for(let i=0;i<chk.length;i++)if(chk[i]!==vh[i]){const e=new Error('Wrong password.');e.code='password';throw e}
+ const key=(await aes(await dk(new Uint8Array([0x14,0x6e,0x0b,0xe7,0xab,0xac,0xd0,0xd6])),salt.subarray(0,16),b64(ek.getAttribute('encryptedKeyValue')))).subarray(0,kb);
+ const ksalt=b64(kd.getAttribute('saltValue')),size=u32(pkg,0),out=new Uint8Array(Math.ceil((pkg.length-8)/4096)*4096);
+ for(let i=0,o=8;o<pkg.length;i++,o+=4096){const seg=pkg.subarray(o,Math.min(o+4096,pkg.length));const iv=(await hash(cat(ksalt,le(i)))).subarray(0,bs);const full=seg.length%16?cat(seg,new Uint8Array(16-seg.length%16)):seg;out.set(await aes(key,iv,full),i*4096)}
+ return{bytes:out.subarray(0,size),encrypted:true}}
+return{decrypt}})();
+
+
+const Parse=(()=>{
+const nn=s=>String(s==null?'':s).toLowerCase().replace(/[^a-z0-9]/g,'');
+const num=v=>typeof v==='number'&&isFinite(v)?v:(typeof v==='string'&&v.trim()!==''&&isFinite(+v)?+v:null);
+const sec=v=>typeof v==='number'?Math.round(v*86400):null;
+const dOf=v=>typeof v==='number'?new Date(Math.round((v-25569)*864e5)):null;
+const err=(code,msg)=>{const e=new Error(msg);e.code=code;return e};
+const PARAMS=[['Critical Error %',7,8,9,'p',1],['Empathy',10,11,12,'p',0],['FCR',13,14,15,'p',0],['Complaint Escalation Accuracy',16,17,18,'p',0],['Service Delivery',19,20,21,'n',0],['Schedule Adherence',22,23,24,'p',0],['Login Compliance',null,28,29,'p',0],['AHT (sec)',30,31,32,'n',1],['CSAT / CFS',33,34,35,'p',0],['Break (extra)',null,37,38,'d',1],['DKB Attendance',null,39,40,'p',0],['Quiz Score',null,41,42,'p',0]];
+function parse(XLSX,bytes,log){
+ const say=m=>log&&log(m);
+ say('Reading workbook');
+ const names=XLSX.read(bytes,{type:'array',bookSheets:true}).SheetNames;
+ const pick=(pred)=>names.find(n=>pred(nn(n)));
+ const S={kpi:pick(n=>n==='kpi'),cfs:pick(n=>n.includes('daywise')&&n.includes('cfs')),aht:pick(n=>n.includes('daywise')&&n.includes('aht')),ce:pick(n=>n.includes('dkb')),fq:pick(n=>n.includes('fcr')),esc:pick(n=>n.includes('escalation')),ort:pick(n=>n==='ort'),att:pick(n=>n.startsWith('attendance'))};
+ const warnings=[];
+ if(!S.kpi)throw err('missing','Required sheet "KPI" was not found. Sheets in file: '+names.join(', '));
+ const want=Object.values(S).filter(Boolean);
+ const lab={cfs:'Day Wise CFS Tracker',aht:'Day Wise AHT Tracker',ce:'Quality & DKB report (CE & DKB)',fq:'FCR & Quiz',esc:'Escalation Accuracy',ort:'ORT',att:'Attendance'};
+ for(const k in lab)if(!S[k])warnings.push('Sheet missing: '+lab[k]+' – related sections will show no data.');
+ say('Parsing sheets');
+ const wb=XLSX.read(bytes,{type:'array',sheets:want});
+ const R=n=>n?XLSX.utils.sheet_to_json(wb.Sheets[n],{header:1,raw:true,defval:null}):[];
+ const k=R(S.kpi);
+ const h0=k.findIndex(r=>r[0]==='ID'&&nn(r[1])==='name');
+ if(h0<0)throw err('layout','KPI sheet layout not recognised: header row with "ID" and "Name" not found.');
+ const agents=[];let grp='Regular';
+ for(let i=h0+1;i<k.length;i++){const r=k[i];
+  if(typeof r[0]==='string'){if(/tl\s*kpi/i.test(r[0]))break;if(/ojt/i.test(r[0]))grp='OJT';else if(/regular/i.test(r[0]))grp='Regular';continue}
+  if(typeof r[0]!=='number'||typeof r[1]!=='string')continue;
+  const kp=PARAMS.map(([nm,t,a,s,f,low])=>({k:nm,t:t==null?null:r[t],v:r[a],s:num(r[s]),f,low}));
+  agents.push({id:String(r[0]),name:r[1].trim(),tl:r[2],grp,elig:r[3],roster:num(r[4]),pres:num(r[5]),abs:num(r[6]),kpi:kp,lag:r[27],ready:sec(r[26]),target:sec(r[25]),tot:num(r[43]),score:num(r[44]),final:num(r[45]),grade:r[46],ce:null,dkb:null,fcr:null,quiz:null,ort:null,esc:null,cfs:null,aht:null,att:[]})}
+ if(!agents.length)throw err('layout','No agents found in the KPI sheet.');
+ const byId={},byName={};agents.forEach(a=>{byId[a.id]=a;byName[nn(a.name)]=a});
+ const A=(id,name)=>(id!=null&&byId[String(id).trim()])||byName[nn(name)];
+ let monthD=null;
+ const c=R(S.cfs);
+ if(S.cfs){const h=c.findIndex(r=>r[0]==='ID'&&nn(r[2])==='name');if(h<1)warnings.push('Day Wise CFS Tracker layout not recognised.');else{
+  const dr=c[h-1];for(let i=h+1;i<c.length;i++){const r=c[i];if(typeof r[0]!=='number')continue;const a=A(r[0],r[2]);if(!a)continue;
+   const days=[];for(let j=7;j+2<r.length;j+=3){const d=dOf(dr[j]);if(!d)continue;days.push({d:d.getUTCDate(),cs:num(r[j])||0,ds:num(r[j+1])||0,sc:num(r[j+2])});if(!monthD)monthD=d}
+   a.cfs={m:{cs:num(r[4]),ds:num(r[5]),sc:num(r[6])},days}}}}
+ const t=R(S.aht);
+ if(S.aht){const h=t.findIndex(r=>r[0]==='ID'&&nn(r[1])==='csaname');if(h<1)warnings.push('Day Wise AHT Tracker layout not recognised.');else{
+  const dr=t[h-1];for(let i=h+1;i<t.length;i++){const r=t[i];if(typeof r[0]!=='number')continue;const a=A(r[0],r[1]);if(!a)continue;
+   const days=[];for(let j=6;j+2<r.length;j+=3){const d=dOf(dr[j]);if(!d)continue;days.push({d:d.getUTCDate(),st:sec(r[j]),aux:sec(r[j+1]),aht:num(r[j+2])});if(!monthD)monthD=d}
+   a.aht={m:{st:sec(r[3]),aux:sec(r[4]),aht:num(r[5])},days}}}}
+ const notes={};
+ if(S.ce){const r=R(S.ce);const nt=(c)=>{const x=r.slice(0,4).find(y=>typeof y[c]==='string'&&/till|updated/i.test(y[c]));return x&&x[c]};notes.audit=nt(0);notes.dkb=nt(7);const h=r.findIndex(x=>nn(x[0])==='agentname');if(h>=0)for(let i=h+1;i<r.length;i++){const x=r[i];
+  if(x[0]&&nn(x[0])!=='grandtotal'){const a=A(null,x[0]);if(a)a.ce={aud:num(x[1]),pass:num(x[2]),fail:num(x[3]),ce:num(x[4]),emp:num(x[5])}}
+  if(x[7]&&nn(x[7])!=='grandtotal'){const a=A(null,x[7]);if(a)a.dkb={abs:num(x[8])||0,pres:num(x[9])||0,tot:num(x[10]),pct:num(x[11])}}}}
+ if(S.fq){const r=R(S.fq);notes.quiz=(r.find(x=>/quiz/i.test(x[0]||'')&&/phase/i.test(x[0]))||[])[0];
+  const h=r.findIndex(x=>nn(x[0])==='agentname');if(h>=0)for(let i=h+1;i<r.length;i++){const x=r[i];if(!x[0])break;const a=A(null,x[0]);if(a)a.quiz={avg:num(x[1]),ph:[3,4,5,6].map(j=>num(x[j]))}}
+  r.forEach(x=>{if(nn(x[9])==='site'||!x[10]||!x[11])return;const a=A(x[10],x[11]);if(a)a.fcr={calls:num(x[13]),cnt:num(x[14]),pct:num(x[15])}})}
+ if(S.esc){const r=R(S.esc);notes.esc=r[0]&&r[0][0];r.slice(2).forEach(x=>{if(!x[0])return;const a=A(null,x[0]);if(a)a.esc={inv:num(x[1]),val:num(x[2]),tot:num(x[3]),acc:num(x[4])}})}
+ if(S.ort){const r=R(S.ort),H={};(r[0]||[]).forEach((v,i)=>H[nn(v)]=i);r.slice(1).forEach(x=>{const a=A(x[H.id],x[H.name]);if(a)a.ort={aht:num(x[H.aht]),lag:x[H.lagtime],login:num(x[H.logincompliance]),extra:x[H.extrabreak],brk:sec(x[H.breaktime]),adh:num(x[H.adherence]),shr:num(x[H.unplannedshrinkage])}})}
+ let lastD=null;
+ if(S.att){const r=R(S.att);r.slice(1).forEach(x=>{const a=byId[String(x[2])];if(!a||typeof x[1]!=='number')return;const d=dOf(x[1]);if(!monthD)monthD=d;
+  const st=x[22]==1?'P':x[23]==1?'A':'O';a.att.push({d:d.getUTCDate(),st,calls:num(x[9])||0});if(st==='P'&&x[9]>0&&(!lastD||d>lastD))lastD=d})}
+ if(!monthD)monthD=new Date();
+ if(!lastD){agents.forEach(a=>(a.aht?a.aht.days:[]).forEach(d=>{const dd=new Date(Date.UTC(monthD.getUTCFullYear(),monthD.getUTCMonth(),d.d));if(!lastD||dd>lastD)lastD=dd}))}
+ const fmt=d=>d.toISOString().slice(0,10);
+ const ym=monthD.toISOString().slice(0,7);
+ const missing=agents.filter(a=>!a.cfs).length;if(S.cfs&&missing)warnings.push(missing+' agent(s) have no row in Day Wise CFS Tracker (shown as no data).');
+ const ma=agents.filter(a=>!a.aht).length;if(S.aht&&ma)warnings.push(ma+' agent(s) have no row in Day Wise AHT Tracker (shown as no data).');
+ const f=agents.filter(a=>a.final!=null);
+ return{meta:{month:ym,dataUpTo:lastD?fmt(lastD):null,notes,agents:agents.length,regular:agents.filter(a=>a.grp==='Regular').length,ojt:agents.filter(a=>a.grp==='OJT').length,avg:f.length?f.reduce((s,a)=>s+a.final,0)/f.length:null,hidden:{audited:true}},agents,warnings,sheets:S}}
+return{parse,nn,PARAMS}})();
+
+
+(()=>{
+let D={meta:{notes:{}},agents:[],history:[]};const CFG={owner:'',repo:'',branch:'main'};
+const $=s=>document.querySelector(s),esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const isN=v=>typeof v==='number'&&isFinite(v);
+const P=v=>isN(v)?(v*100).toFixed(1)+'%':v==null?'–':esc(v),N=(v,d=1)=>isN(v)?v.toFixed(d):v==null?'–':esc(v);
+const T=v=>isN(v)?Math.floor(v/3600)+'h '+String(Math.floor(v%3600/60)).padStart(2,'0')+'m':v==null?'–':esc(v);
+const avg=a=>{const x=a.filter(isN);return x.length?x.reduce((s,b)=>s+b,0)/x.length:null};
+const K=(a,n)=>a.kpi.find(k=>k.k===n)||{};
+const AHTT=180,QUAL=1.97;
+const SEC=[['dash','Dashboard'],['me','My Performance'],['audit','Audit Details'],['emp','Parameter Empathy'],['fcr','FCR, Quiz and SD'],['dkb','Complaint and DKB'],['lag','Lag and Adherence'],['aht','AHT and CFS']];
+let S={sec:'dash',ag:'all',me:'',cur:0};const TB={};
+const pill=(c,t)=>`<span class="pill p${c}">${t}</span>`;
+function st(k){const v=k.v,t=k.t;if(isN(v)&&isN(t)){const ok=k.low?v<=t:v>=t;return ok?'g':(k.s>0?'w':'c')}return isN(k.s)?(k.s>0?'g':'c'):'n'}
+const stT={g:'On target',w:'Near',c:'Below',n:'No data'};
+const fv=(k,v)=>k.f==='p'?P(v):k.f==='d'?T(v):N(v,k.k.startsWith('AHT')?0:2);
+function line(ser,o={}){const W=640,H=200,m=34,all=ser.flatMap(s=>s.p.filter(isN));if(!all.length)return'<div class="stamp">No daily data yet</div>';
+ let lo=Math.min(...all,o.t==null?1e9:o.t),hi=Math.max(...all,o.t==null?-1e9:o.t);if(lo===hi){lo-=1;hi+=1}const pad=(hi-lo)*.1;lo-=pad;hi+=pad;const nx=Math.max(...ser.map(s=>s.p.length))-1||1;
+ const X=i=>m+i*(W-m-8)/nx,Y=v=>H-24-(v-lo)*(H-40)/(hi-lo);let g='';
+ for(let i=0;i<=4;i++){const v=lo+(hi-lo)*i/4;g+=`<line x1="${m}" x2="${W-8}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="2" y="${Y(v)+4}" font-size="10" fill="var(--mut)">${o.pc?(v*100).toFixed(0)+'%':v.toFixed(0)}</text>`}
+ if(o.t!=null)g+=`<line x1="${m}" x2="${W-8}" y1="${Y(o.t)}" y2="${Y(o.t)}" stroke="var(--w)" stroke-dasharray="5 4"/>`;
+ for(let i=0;i<=nx;i+=Math.ceil(nx/10))g+=`<text x="${X(i)}" y="${H-6}" font-size="10" fill="var(--mut)" text-anchor="middle">${i+1}</text>`;
+ ser.forEach(s=>{let d='',on=0;s.p.forEach((v,i)=>{if(isN(v)){d+=(on?'L':'M')+X(i)+' '+Y(v);on=1}else on=0});g+=`<path class="dr" d="${d}" fill="none" stroke="${s.c}" stroke-width="2.4"/>`;s.p.forEach((v,i)=>{if(isN(v))g+=`<circle cx="${X(i)}" cy="${Y(v)}" r="2.6" fill="${s.c}"/>`})});
+ return`<svg class="ch" viewBox="0 0 ${W} ${H}">${g}</svg>`}
+function bars(vals,o={}){const W=640,H=200,m=34,mx=Math.max(...vals.filter(isN),1),n=vals.length;let g='';const bw=(W-m-8)/n;
+ vals.forEach((v,i)=>{if(isN(v)){const h=v/mx*(H-40);g+=`<rect x="${m+i*bw+2}" y="${H-24-h}" width="${bw-4}" height="${h}" rx="3" fill="${o.c||'var(--p2)'}"><animate attributeName="height" from="0" to="${h}" dur=".8s"/><animate attributeName="y" from="${H-24}" to="${H-24-h}" dur=".8s"/></rect>`}g+=`<text x="${m+i*bw+bw/2}" y="${H-8}" font-size="10" fill="var(--mut)" text-anchor="middle">${i+1}</text>`});
+ return`<svg class="ch" viewBox="0 0 ${W} ${H}">${g}</svg>`}
+function tbl(id,cols,rows,note,grp){TB[id]={cols,rows,q:'',sk:null,d:1};return`<div class="card"><div class="tb"><input data-q="${id}" placeholder="Search…"><button class="btn sec" data-x="${id}">Export CSV</button></div>${note?`<div class="stamp" style="margin-bottom:6px">${note}</div>`:''}<div class="tw"><table class="${grp?'mx':''}"><thead>${grp?`<tr>${grp.map(g=>`<th colspan="${g[1]}" style="text-align:center">${g[0]}</th>`).join('')}</tr>`:''}<tr>${cols.map((c,i)=>`<th data-s="${id}|${i}">${c.h} ⇅</th>`).join('')}</tr></thead><tbody id="tb-${id}">${tbody(id)}</tbody></table></div></div>`}
+function tbody(id){const t=TB[id];let r=t.rows.slice();if(t.q){const q=t.q.toLowerCase();r=r.filter(x=>t.cols.map(c=>c.v(x)).join(' ').toLowerCase().includes(q))}
+ if(t.sk!=null){const c=t.cols[t.sk];r.sort((a,b)=>{const x=c.v(a),y=c.v(b);if(isN(x)&&isN(y))return(x-y)*t.d;if(isN(x))return-1;if(isN(y))return 1;return String(x??'').localeCompare(String(y??''))*t.d})}
+ return r.map(x=>'<tr>'+t.cols.map(c=>'<td>'+(c.r?c.r(x):esc(c.v(x)??'–'))+'</td>').join('')+'</tr>').join('')||'<tr><td colspan="99">No rows</td></tr>'}
+function exp(id){const t=TB[id],q=v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"';const csv=[t.cols.map(c=>q(c.hx||c.h)).join(',')].concat(t.rows.map(r=>t.cols.map(c=>q(c.v(r))).join(','))).join('\n');
+ const u=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv'})),a=document.createElement('a');a.href=u;a.download=id+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(u),2000)}
+const note=k=>`Data up to: <b>${esc((D.meta.notes&&D.meta.notes[k])||D.meta.dataUpTo||'–')}</b> · Last updated: <b>${new Date(D.meta.uploadedAt||Date.now()).toLocaleString()}</b>`;
+const nameC={h:'Agent',v:a=>a.name},rankOf=a=>[...D.agents].sort((x,y)=>(y.final||0)-(x.final||0)).findIndex(z=>z.id===a.id)+1;
+const grd=a=>pill(a.grade==='D'?'c':a.grade==='C'?'w':'g',esc(a.grade||'–'));
+const pc=(n,f)=>({h:n,v:f,r:a=>P(f(a))}),pcT=(n,f,t,low)=>({h:n,v:f,r:a=>{const v=f(a);return isN(v)?pill((low?v<=t:v>=t)?'g':'c',P(v)):P(v)}});
+function L(){return S.ag==='all'?D.agents:D.agents.filter(a=>a.id===S.ag)}
+function count(){document.querySelectorAll('.cnt').forEach(e=>{const v=+e.dataset.v,f=e.dataset.f,F=x=>f==='p'?(x*100).toFixed(1)+'%':f==='0'?Math.round(x)+'':x.toFixed(f==='2'?2:1);const t0=performance.now();const s=t=>{const k=Math.min(1,(t-t0)/900);e.textContent=F(v*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(s)};requestAnimationFrame(s)});setTimeout(()=>document.querySelectorAll('.bar i').forEach(b=>b.style.width=b.dataset.w),30)}
+const tile=(l,v,f,sub)=>`<div class="card tile"><span class="l">${l}</span>${isN(v)?`<b class="cnt" data-v="${v}" data-f="${f}">0</b>`:'<b>–</b>'}<small>${sub||''}</small></div>`;
+const brow=(l,v,t)=>`<div class="row"><span>${l}</span><div class="bar"><i data-w="${isN(v)?Math.max(0,Math.min(1,v))*100:0}%"></i></div><em>${t||P(v)}</em></div>`;
+function extra(l){const sm=(f)=>l.reduce((s,a)=>s+(f(a)||0),0);
+ const calls=sm(a=>a.att.reduce((x,y)=>x+y.calls,0)),aud=sm(a=>a.ce&&a.ce.aud),pas=sm(a=>a.ce&&a.ce.pass),fc=sm(a=>a.fcr&&a.fcr.calls),fn=sm(a=>a.fcr&&a.fcr.cnt),cs=sm(a=>a.cfs&&a.cfs.m.cs),ds=sm(a=>a.cfs&&a.cfs.m.ds),ro=sm(a=>a.roster),pr=sm(a=>a.pres);
+ const ops=`<h3>Operations snapshot</h3><div class="grid">${tile('Calls handled (attendance sheet)',calls,'0','Agents with roster rows')}${tile('Total audits',aud,'0')}${tile('Audit pass rate',aud?pas/aud:null,'p',pas+' pass')}${tile('FCR calls',fc,'0',fn+' resolved')}${tile('Overall FCR',fc?fn/fc:null,'p')}${tile('CSAT responses',cs,'0')}${tile('DSAT responses',ds,'0')}${tile('Roster attendance',ro?pr/ro:null,'p',pr+' of '+ro+' days')}</div>`;
+ const cards=D.agents[0].kpi.map((k0,i)=>{const ks=l.map(a=>a.kpi[i]),ok=ks.filter(k=>st(k)==='g').length,kn=ks.filter(k=>st(k)!=='n').length,p=kn?ok/kn:null,av=avg(ks.map(k=>k.v).filter(isN)),sc=avg(ks.map(k=>k.s)),mx=Math.max(0,...ks.map(k=>k.s).filter(isN)),full=ks.filter(k=>isN(k.s)&&k.s===mx&&mx>0).length,t=ks.find(k=>isN(k.t)&&k.t>0),c=p==null?'n':p>=.7?'g':p>=.4?'w':'c';
+  return`<div class="card"><div style="display:flex;justify-content:space-between;gap:6px;align-items:start"><b>${i+1}. ${k0.k}</b>${pill(c,p==null?'No data':P(p))}</div><div class="stamp">${t?'Target '+(k0.low?'≤ ':'≥ ')+fv(k0,t.t):'Score based'}</div><div style="font-size:22px;color:var(--p1);margin:6px 0"><b>${k0.f==='d'?ok+' / '+kn+' no extra break':fv(k0,av)}</b></div>${brow('Agents meeting',p)}<div class="stamp">Avg KPI score ${N(sc,2)} · max ${N(mx,2)} earned by ${full} agent(s)</div></div>`}).join('');
+ const gr=g=>{const x=l.filter(a=>a.grp===g);return x.length?`<tr><td>${g}</td><td>${x.length}</td><td>${N(avg(x.map(a=>a.final)),2)}</td><td>${N(avg(x.map(a=>K(a,'AHT (sec)').v)),0)}</td><td>${P(avg(x.map(a=>K(a,'CSAT / CFS').v)))}</td><td>${P(avg(x.map(a=>K(a,'Schedule Adherence').v)))}</td><td>${x.filter(a=>a.final>=QUAL).length}</td></tr>`:''};
+ const board=tbl('board',[{h:'Rank',v:rankOf},nameC,{h:'Type',v:a=>a.grp},...D.agents[0].kpi.map((k0,i)=>({h:(i+1)+'. '+k0.k,v:a=>a.kpi[i].s,r:a=>pill(st(a.kpi[i]),N(a.kpi[i].s,2))})),{h:'Total',v:a=>a.score,r:a=>N(a.score,2)},{h:'Final',v:a=>a.final,r:a=>N(a.final,2)},{h:'Grade',v:a=>a.grade,r:grd}],l,'KPI score earned per parameter (colour = target status)');
+ return ops+`<h3>12 KPI parameters – team view</h3><div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(250px,1fr))">${cards}</div><div class="card"><h3>Regular vs OJT</h3><div class="tw"><table><tr><th>Group</th><th>Agents</th><th>Avg final</th><th>Avg AHT</th><th>CSAT</th><th>Adherence</th><th>Qualified</th></tr>${gr('Regular')}${gr('OJT')}</table></div></div><br><h3>Agent KPI scoreboard</h3>${board}<br>`}
+function dash(){const l=L(),G=['A+','A','B','C','D'],gc=G.map(g=>l.filter(a=>a.grade===g).length),mk=n=>avg(l.map(a=>K(a,n).v));
+ const q=l.filter(a=>isN(a.final)&&a.final>=QUAL).length,top=[...l].filter(a=>isN(a.final)).sort((a,b)=>b.final-a.final);
+ const best=(f,hi=true)=>{const x=l.filter(a=>isN(f(a)));return x.sort((a,b)=>hi?f(b)-f(a):f(a)-f(b))[0]};
+ const aw=[['🏆','Top Performer',top[0],a=>N(a.final,2)+' pts'],['🎯','Quality Champion',best(a=>K(a,'Empathy').v),a=>P(K(a,'Empathy').v)+' empathy'],['⚡','Speed Star',best(a=>K(a,'AHT (sec)').v,false),a=>N(K(a,'AHT (sec)').v,0)+' sec AHT'],['📅','Attendance Hero',best(a=>a.roster?a.pres/a.roster:null),a=>P(a.pres/a.roster)+' present'],['⭐','CSAT Star',best(a=>K(a,'CSAT / CFS').v),a=>P(K(a,'CSAT / CFS').v)]];
+ const meet=D.agents[0].kpi.map((k,i)=>{const x=l.map(a=>({...a.kpi[i]})).filter(z=>isN(z.v)&&isN(z.t));return{n:k.k,p:x.length?x.filter(z=>z.low?z.v<=z.t:z.v>=z.t).length/x.length:null}}).filter(m=>m.p!=null);
+ const risk=l.filter(a=>a.grade==='D'||(isN(a.final)&&a.final<QUAL)),sm=[...meet].sort((a,b)=>b.p-a.p);
+ const days=Array.from({length:31},(_,i)=>i+1),dm=(f)=>days.map(d=>avg(l.map(a=>f(a,d))));
+ const ahtD=dm((a,d)=>((a.aht&&a.aht.days.find(x=>x.d===d))||{}).aht),csD=dm((a,d)=>{const x=a.cfs&&a.cfs.days.find(x=>x.d===d);return x&&x.cs+x.ds>0?x.sc:null}),clD=days.map(d=>{const s=l.map(a=>(a.att.find(x=>x.d===d)||{}).calls).filter(isN);return s.length?s.reduce((a,b)=>a+b,0):null});
+ const nd=Math.max(...D.agents.flatMap(a=>(a.aht?a.aht.days:[]).map(x=>x.d)),28);
+ return`<div class="sel"><select data-ag>${'<option value="all">All Agents (Team)</option>'+D.agents.map(a=>`<option value="${a.id}" ${S.ag===a.id?'selected':''}>${esc(a.name)}</option>`).join('')}</select></div><br>
+<h3>Team Performance Summary</h3><div class="grid">${tile('Agents',l.length,'0',D.meta.regular+' regular · '+D.meta.ojt+' OJT')}${tile('Avg final score',avg(l.map(a=>a.final)),'2','Max 3.5')}${tile('Qualified',q,'0','Grade C or above')}${tile('Avg AHT (sec)',mk('AHT (sec)'),'0','Target 150–160')}${tile('Avg CSAT / CFS',mk('CSAT / CFS'),'p')}${tile('Adherence',mk('Schedule Adherence'),'p')}${tile('Critical error %',mk('Critical Error %'),'p','Target ≤2–3%')}${tile('Empathy',mk('Empathy'),'p','Target 61–90%')}${tile('FCR',mk('FCR'),'p','Target 93–95%')}${tile('Login compliance',mk('Login Compliance'),'p')}${tile('DKB attendance',mk('DKB Attendance'),'p')}</div>
+${extra(l)}<div class="g2"><div class="card"><h3>Grade distribution</h3>${G.map((g,i)=>brow(g,l.length?gc[i]/l.length:0,gc[i]+' agents')).join('')}</div>
+<div class="card"><h3>Agent Leaderboard – Top 5</h3>${top.slice(0,5).map((a,i)=>`<div class="aw"><span class="ic">${['🥇','🥈','🥉','④','⑤'][i]}</span><div style="flex:1"><b>${esc(a.name)}</b><div class="stamp">Grade ${esc(a.grade)} · ${a.grp}</div></div><b>${N(a.final,2)}</b></div>`).join('')||'–'}</div></div>
+<h3>Gamification and Awards</h3><div class="grid">${aw.map(([i,t,a,f])=>`<div class="card aw"><span class="ic gold">${i}</span><div><div class="l stamp">${t}</div><b>${a?esc(a.name):'–'}</b><div class="stamp">${a?f(a):''}</div></div></div>`).join('')}</div>
+<div class="g2"><div class="card"><h3>% of agents meeting each KPI target</h3>${meet.map(m=>brow(m.n,m.p)).join('')}</div>
+<div class="card"><h3>Focus areas</h3><p>💪 Strongest KPI: <b>${sm[0]?esc(sm[0].n)+' ('+P(sm[0].p)+')':'–'}</b></p><p>🔻 Weakest KPI: <b>${sm.length?esc(sm[sm.length-1].n)+' ('+P(sm[sm.length-1].p)+')':'–'}</b></p><h3 style="margin-top:14px">Agents at risk (${risk.length})</h3>${risk.map(a=>`<div>${esc(a.name)} ${grd(a)} <span class="stamp">${N(a.final,2)}</span></div>`).join('')||'None 🎉'}</div></div>
+<div class="g2"><div class="card"><h3>Daily AHT (sec) – team average</h3>${line([{c:'var(--p2)',p:ahtD.slice(0,nd)}],{t:AHTT})}</div><div class="card"><h3>Daily CSAT / CFS score</h3>${line([{c:'var(--g)',p:csD.slice(0,nd)}],{pc:1})}</div></div>
+<div class="card"><h3>Daily calls handled (attendance sheet)</h3>${bars(clD.slice(0,nd))}</div><br>
+<div class="card"><h3>History of uploads – team average score</h3>${(D.history||[]).length?`<div class="tw"><table><tr><th>Uploaded</th><th>Month</th><th>Data up to</th><th>Agents</th><th>Avg score</th></tr>${D.history.slice().reverse().map(h=>`<tr><td>${new Date(h.at).toLocaleString()}</td><td>${h.month}</td><td>${h.upto||'–'}</td><td>${h.n}</td><td>${N(h.avg,2)}</td></tr>`).join('')}</table></div>`:'<span class="stamp">History starts with the next upload.</span>'}</div>`}
+function me(){const a=D.agents.find(x=>x.id===S.me);const sel=`<select data-me><option value="">— Select your name —</option>${D.agents.map(x=>`<option value="${x.id}" ${S.me===x.id?'selected':''}>${esc(x.name)}</option>`).join('')}</select>`;
+ const team=tbl('team',[{h:'Rank',v:rankOf},nameC,{h:'Type',v:a=>a.grp},{h:'Final score',v:a=>a.final,r:a=>N(a.final,2)},{h:'Grade',v:a=>a.grade,r:grd},pc('AHT',a=>K(a,'AHT (sec)').v)&&{h:'AHT',v:a=>K(a,'AHT (sec)').v,r:a=>N(K(a,'AHT (sec)').v,0)},pc('CSAT',a=>K(a,'CSAT / CFS').v)],D.agents.slice().sort((x,y)=>rankOf(x)-rankOf(y)),note('dkb'));
+ if(!a)return`<div class="tb">${sel}</div><h3>Whole team</h3>${team}`;
+ const rows=a.kpi.map(k=>({k,s:st(k)}));
+ const cal=a.att.length?`<div class="cal">${a.att.map(x=>`<div class="${x.st}"><b>${x.d}</b><br>${x.st==='P'?x.calls+' calls':x.st==='A'?'Absent':'Off'}</div>`).join('')}</div><div class="stamp" style="margin-top:6px">Green present · Red absent · Grey day off</div>`:'<span class="stamp">No attendance rows for this agent in the workbook.</span>';
+ const cd=a.cfs?a.cfs.days:[],ad=a.aht?a.aht.days:[],nd=Math.max(cd.length,ad.length,28);
+ const pd=(arr,f)=>Array.from({length:nd},(_,i)=>{const x=arr.find(z=>z.d===i+1);return x?f(x):null});
+ return`<div class="tb">${sel}</div><div class="grid">${tile('Rank in team',rankOf(a),'0','of '+D.agents.length)}${tile('Total score',a.score,'2','of '+N(a.tot,0)+' scorable')}${tile('Final score',a.final,'2')}<div class="card tile"><span class="l">Grade</span><b>${esc(a.grade)}</b><small>Eligibility: ${esc(a.elig)}</small></div></div>
+<div class="card"><h3>KPI scorecard – ${esc(a.name)}</h3><div class="tw"><table><tr><th>Parameter</th><th>Target</th><th>Actual</th><th>KPI score</th><th>Status</th></tr>${rows.map(r=>`<tr><td>${r.k.k}</td><td>${r.k.t==null?'–':fv(r.k,r.k.t)}</td><td>${fv(r.k,r.k.v)}</td><td>${N(r.k.s,2)}</td><td>${pill(r.s,stT[r.s])}</td></tr>`).join('')}<tr><th>Total</th><th></th><th>Final: ${N(a.final,2)}</th><th>${N(a.score,2)}</th><th>${grd(a)}</th></tr></table></div></div><br>
+<div class="g2"><div class="card"><h3>Day-wise CFS score</h3>${a.cfs?`${line([{c:'var(--p2)',p:pd(cd,x=>x.cs+x.ds>0?x.sc:null)}],{pc:1})}<div class="stamp">Monthly: CSAT ${N(a.cfs.m.cs,0)} · DSAT ${N(a.cfs.m.ds,0)} · Score <b>${P(a.cfs.m.sc)}</b></div><div class="tw" style="max-height:240px"><table><tr><th>Day</th><th>CSAT</th><th>DSAT</th><th>Score</th></tr>${cd.filter(x=>x.cs+x.ds>0).map(x=>`<tr><td>${x.d}</td><td>${x.cs}</td><td>${x.ds}</td><td>${P(x.sc)}</td></tr>`).join('')}</table></div>`:'<span class="stamp">No CFS tracker row for this agent.</span>'}</div>
+<div class="card"><h3>Day-wise AHT vs target (${AHTT}s)</h3>${a.aht?`${line([{c:'var(--p1)',p:pd(ad,x=>x.aht)}],{t:AHTT})}<div class="stamp">Monthly: AHT <b>${N(a.aht.m.aht,0)}s</b> · Staff time ${T(a.aht.m.st)} · AUX ${T(a.aht.m.aux)}</div><div class="tw" style="max-height:240px"><table><tr><th>Day</th><th>AHT</th><th>vs target</th><th>Staff</th><th>AUX</th></tr>${ad.filter(x=>isN(x.aht)).map(x=>`<tr><td>${x.d}</td><td>${N(x.aht,0)}</td><td>${pill(x.aht<=AHTT?'g':'c',x.aht<=AHTT?'Within':'Over')}</td><td>${T(x.st)}</td><td>${T(x.aux)}</td></tr>`).join('')}</table></div>`:'<span class="stamp">No AHT tracker row.</span>'}</div></div>
+<div class="g2"><div class="card"><h3>Attendance calendar &amp; daily calls</h3>${cal}</div><div class="card"><h3>Whole team ranking</h3><div class="stamp">Pick another name above to switch.</div></div></div>`}
+const MONS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],DIM=()=>{const[y,m]=D.meta.month.split('-');return new Date(+y,+m,0).getDate()},MON=()=>MONS[+D.meta.month.split('-')[1]-1];
+const HMS=s=>isN(s)?Math.floor(s/3600)+':'+String(Math.floor(s%3600/60)).padStart(2,'0')+':'+String(Math.round(s%60)).padStart(2,'0'):'–';
+function teamAgent(){const n=DIM(),cd=[],ad=[];let c1=0,c2=0,S1=0,A1=0,H=0,C=0;
+ for(let d=1;d<=n;d++){let cs=0,ds=0,st=0,au=0,h=0,c=0,hc=0,ha=0;D.agents.forEach(a=>{const x=a.cfs&&a.cfs.days.find(z=>z.d===d);if(x){cs+=x.cs;ds+=x.ds}const y=a.aht&&a.aht.days.find(z=>z.d===d);if(y){st+=y.st||0;au+=y.aux||0;if(isN(y.aht)&&y.aht>0){const q=(y.st||0)-(y.aux||0);h+=q;c+=q/y.aht}}});
+  cd.push({d,cs,ds,sc:cs+ds?cs/(cs+ds):null});ad.push({d,st,aux:au,aht:c?h/c:null});c1+=cs;c2+=ds;S1+=st;A1+=au;H+=h;C+=c}
+ return{name:'TEAM TOTAL',cfs:{m:{cs:c1,ds:c2,sc:c1+c2?c1/(c1+c2):null},days:cd},aht:{m:{st:S1,aux:A1,aht:C?H/C:null},days:ad}}}
+const WK=[[1,7],[8,14],[15,21],[22,28],[29,31]];
+const wkC=(a,w)=>{if(!a.cfs)return null;const x=a.cfs.days.filter(z=>z.d>=w[0]&&z.d<=w[1]),cs=x.reduce((s,z)=>s+z.cs,0),ds=x.reduce((s,z)=>s+z.ds,0);return{cs,ds,sc:cs+ds?cs/(cs+ds):null}};
+const wkA=(a,w)=>{if(!a.aht)return null;const x=a.aht.days.filter(z=>z.d>=w[0]&&z.d<=w[1]),st=x.reduce((s,z)=>s+(z.st||0),0),au=x.reduce((s,z)=>s+(z.aux||0),0);let h=0,c=0;x.forEach(z=>{if(isN(z.aht)&&z.aht>0){const q=(z.st||0)-(z.aux||0);h+=q;c+=q/z.aht}});return{st,au,aht:c?h/c:null}};
+const scp=sc=>isN(sc)?pill(sc>=.9?'g':sc>=.85?'w':'c',(sc*100).toFixed(1)+'%'):'–',ahp=v=>isN(v)?pill(v<=AHTT?'g':'c',Math.round(v)):'–';
+function ahtPage(){const TM=teamAgent(),rows=[TM,...D.agents],n=DIM(),m=MON(),wg=WK.filter(w=>w[0]<=n).map(w=>[w[0],Math.min(w[1],n)]);
+ const sum=tbl('aht',[nameC,{h:'AHT (sec)',v:a=>K(a,'AHT (sec)').v,r:a=>N(K(a,'AHT (sec)').v,0)},{h:'AHT status',v:a=>stT[st(K(a,'AHT (sec)'))],r:a=>pill(st(K(a,'AHT (sec)')),stT[st(K(a,'AHT (sec)'))])},pcT('CSAT / CFS',a=>K(a,'CSAT / CFS').v,.9),{h:'CSAT status',v:a=>stT[st(K(a,'CSAT / CFS'))],r:a=>pill(st(K(a,'CSAT / CFS')),stT[st(K(a,'CSAT / CFS'))])},{h:'Month CSAT',v:a=>a.cfs&&a.cfs.m.cs},{h:'Month DSAT',v:a=>a.cfs&&a.cfs.m.ds},{h:'Staff time',v:a=>a.aht&&a.aht.m.st,r:a=>HMS(a.aht&&a.aht.m.st)},{h:'AUX',v:a=>a.aht&&a.aht.m.aux,r:a=>HMS(a.aht&&a.aht.m.aux)}],D.agents,note(''));
+ const wc=[nameC],wa=[nameC];wg.forEach((w,i)=>{const L='W'+(i+1);wc.push({h:'CSAT',hx:L+' CSAT',v:a=>(wkC(a,w)||{}).cs},{h:'DSAT',hx:L+' DSAT',v:a=>(wkC(a,w)||{}).ds},{h:'Score',hx:L+' Score',v:a=>{const x=wkC(a,w);return x&&isN(x.sc)?Math.round(x.sc*1000)/10:null},r:a=>{const x=wkC(a,w);return x?scp(x.sc):'–'}});
+  wa.push({h:'Staff time',hx:L+' Staff',v:a=>(wkA(a,w)||{}).st,r:a=>HMS((wkA(a,w)||{}).st)},{h:'AUX',hx:L+' AUX',v:a=>(wkA(a,w)||{}).au,r:a=>HMS((wkA(a,w)||{}).au)},{h:'AHT',hx:L+' AHT',v:a=>{const x=wkA(a,w);return x&&isN(x.aht)?Math.round(x.aht):null},r:a=>{const x=wkA(a,w);return x?ahp(x.aht):'–'}})});
+ const wgrp=[['',1],...wg.map((w,i)=>[`Week ${i+1} (${w[0]}–${w[1]} ${m})`,3])];
+ const dc=[nameC,{h:'CSAT',hx:'Month CSAT',v:a=>a.cfs&&a.cfs.m.cs},{h:'DSAT',hx:'Month DSAT',v:a=>a.cfs&&a.cfs.m.ds},{h:'Score',hx:'Month Score',v:a=>a.cfs&&a.cfs.m.sc,r:a=>a.cfs?scp(a.cfs.m.sc):'–'}],da=[nameC,{h:'Staff Time',hx:'Month Staff',v:a=>a.aht&&a.aht.m.st,r:a=>HMS(a.aht&&a.aht.m.st)},{h:'AUX',hx:'Month AUX',v:a=>a.aht&&a.aht.m.aux,r:a=>HMS(a.aht&&a.aht.m.aux)},{h:'AHT',hx:'Month AHT',v:a=>a.aht&&a.aht.m.aht,r:a=>a.aht?ahp(a.aht.m.aht):'–'}];
+ for(let d=1;d<=n;d++){const f=a=>a.cfs&&a.cfs.days.find(z=>z.d===d),g=a=>a.aht&&a.aht.days.find(z=>z.d===d),P2='D'+d+' ';
+  dc.push({h:'CSAT',hx:P2+'CSAT',v:a=>f(a)?f(a).cs:null},{h:'DSAT',hx:P2+'DSAT',v:a=>f(a)?f(a).ds:null},{h:'Score',hx:P2+'Score',v:a=>f(a)&&isN(f(a).sc)?Math.round(f(a).sc*1000)/10:null,r:a=>{const x=f(a);return x&&x.cs+x.ds>0?scp(x.sc):'–'}});
+  da.push({h:'Staff Time',hx:P2+'Staff',v:a=>g(a)?g(a).st:null,r:a=>{const x=g(a);return x&&x.st?HMS(x.st):'–'}},{h:'AUX',hx:P2+'AUX',v:a=>g(a)?g(a).aux:null,r:a=>{const x=g(a);return x&&x.st?HMS(x.aux):'–'}},{h:'AHT',hx:P2+'AHT',v:a=>g(a)&&isN(g(a).aht)?Math.round(g(a).aht):null,r:a=>{const x=g(a);return x?ahp(x.aht):'–'}})}
+ const dgrp=[['',1],['Monthly',3],...Array.from({length:n},(_,i)=>[`${i+1} ${m}`,3])];
+ return sum+'<br><h3>Week-wise CFS</h3>'+tbl('cfsw',wc,rows,note(''),wgrp)+'<br><h3>Week-wise AHT</h3>'+tbl('ahtw',wa,rows,'AHT = total handling time ÷ calls (calls derived from daily AHT tracker). Target '+AHTT+' sec.',wgrp)+'<br><h3>Day-wise CFS</h3>'+tbl('cfsd',dc,rows,note(''),dgrp)+'<br><h3>Day-wise AHT</h3>'+tbl('ahtd',da,rows,'Staff time, AUX and AHT per day (same layout as Excel). Green = within '+AHTT+' sec.',dgrp)}
+const sect={
+audit:()=>tbl('audit',[nameC,{h:'Total audits',v:a=>a.ce&&a.ce.aud},{h:'Pass',v:a=>a.ce&&a.ce.pass},{h:'Fail',v:a=>a.ce&&a.ce.fail},pcT('CE %',a=>a.ce&&a.ce.ce,.02,1),pcT('Empathy accuracy',a=>a.ce&&a.ce.emp,.9),{h:'KPI CE',v:a=>K(a,'Critical Error %').v,r:a=>P(K(a,'Critical Error %').v)}],D.agents,note('audit')),
+emp:()=>tbl('emp',[nameC,{h:'Type',v:a=>a.grp},pcT('Empathy %',a=>K(a,'Empathy').v,.9),{h:'Target',v:a=>K(a,'Empathy').t,r:a=>P(K(a,'Empathy').t)},{h:'KPI score',v:a=>K(a,'Empathy').s,r:a=>N(K(a,'Empathy').s,2)},{h:'Status',v:a=>stT[st(K(a,'Empathy'))],r:a=>pill(st(K(a,'Empathy')),stT[st(K(a,'Empathy'))])}],D.agents,note('audit')+' · Target 90% (61% for OJT)'),
+fcr:()=>tbl('fcr',[nameC,{h:'Calls',v:a=>a.fcr&&a.fcr.calls},{h:'FCR count',v:a=>a.fcr&&a.fcr.cnt},pcT('FCR %',a=>a.fcr&&a.fcr.pct,.93),{h:'Quiz avg',v:a=>a.quiz&&a.quiz.avg,r:a=>P(a.quiz&&a.quiz.avg)},...[0,1,2,3].map(i=>({h:'Phase 0'+(i+1),v:a=>a.quiz&&a.quiz.ph[i]})),{h:'Service delivery',v:a=>K(a,'Service Delivery').v,r:a=>N(K(a,'Service Delivery').v,2)}],D.agents,note('quiz')),
+dkb:()=>tbl('dkb',[nameC,{h:'Escalation valid',v:a=>a.esc&&a.esc.val},{h:'Invalid',v:a=>a.esc&&a.esc.inv},{h:'Escalation accuracy',v:a=>K(a,'Complaint Escalation Accuracy').v,r:a=>P(K(a,'Complaint Escalation Accuracy').v)},{h:'DKB present',v:a=>a.dkb&&a.dkb.pres},{h:'DKB absent',v:a=>a.dkb&&a.dkb.abs},pcT('DKB %',a=>a.dkb&&a.dkb.pct,.9),{h:'Health status',v:a=>stT[st(K(a,'DKB Attendance'))],r:a=>pill(st(K(a,'DKB Attendance')),stT[st(K(a,'DKB Attendance'))])}],D.agents,note('dkb')+' · Escalation: '+esc((D.meta.notes||{}).esc||'–')),
+lag:()=>tbl('lag',[nameC,pcT('Adherence %',a=>K(a,'Schedule Adherence').v,1),pcT('Login compliance',a=>K(a,'Login Compliance').v,.95),{h:'Lag time',v:a=>a.lag,r:a=>isN(a.lag)?T(Math.round(a.lag*86400)):esc(a.lag||'–')},{h:'Extra break',v:a=>K(a,'Break (extra)').v,r:a=>isN(K(a,'Break (extra)').v)?pill('c',T(K(a,'Break (extra)').v)):pill('g',esc(K(a,'Break (extra)').v||'None'))},{h:'KPI (adherence)',v:a=>K(a,'Schedule Adherence').s,r:a=>N(K(a,'Schedule Adherence').s,2)}],D.agents,note('')),
+aht:ahtPage};
+function render(){const s=S.sec;$('#title').textContent=(SEC.find(x=>x[0]===s)||[])[1];
+ $('#stamp').innerHTML=`Team Sparrow · ${esc(D.meta.month)} · `+note(s==='audit'||s==='emp'?'audit':s==='dkb'?'dkb':s==='fcr'?'quiz':'');
+ $('#links').innerHTML=SEC.map(x=>`<button class="${x[0]===s?'on':''}" data-n="${x[0]}">${x[1]}</button>`).join('');
+ $('#view').innerHTML=`<div class="sec">${s==='dash'?dash():s==='me'?me():sect[s]()}</div>`;count();$('#nav').classList.remove('on')}
+/* upload */
+let pend=null,can=false;
+function modal(h){$('#mbody').innerHTML=h;$('#modal').classList.add('on')}
+const tkv=()=>{try{return localStorage.getItem('ght')||''}catch(e){return''}};
+function upUI(msg){modal(`<h3>Update Data</h3><p class="stamp">Upload the updated Excel workbook. It is read in your browser; nothing is sent anywhere until you confirm.</p><p><input type="file" id="f" accept=".xlsx,.xlsm"></p><p><input type="password" id="pw" placeholder="Workbook password"></p><p><input type="password" id="tk" placeholder="GitHub token (editors only)" value="${esc(tkv())}"></p>${msg?`<p class="err">${esc(msg)}</p>`:''}<p id="pr" class="stamp"></p><div style="display:flex;gap:8px"><button class="btn" data-a="read">Read workbook</button><button class="btn sec" data-a="close">Cancel</button></div>`)}
+async function read(){const f=$('#f').files[0],pw=$('#pw').value;try{const t=$('#tk').value.trim();if(t)localStorage.setItem('ght',t)}catch(e){}if(!f)return upUI('Choose an Excel file first.');const pr=m=>{const e=$('#pr');if(e)e.textContent=m};
+ try{pr('Reading file…');const b=new Uint8Array(await f.arrayBuffer());if(typeof XLSX==='undefined')throw Object.assign(new Error('Spreadsheet reader failed to load. Check your connection and retry.'),{code:'lib'});
+  const d=await Decrypt.decrypt(b,pw,p=>pr('Unlocking… '+Math.round(p*100)+'%'));const r=Parse.parse(XLSX,d.bytes,pr);pend=r;
+  modal(`<h3>Preview</h3><p>✅ <b>${r.meta.agents}</b> agents found (${r.meta.regular} regular, ${r.meta.ojt} OJT)<br>Month: <b>${r.meta.month}</b> · Data up to: <b>${r.meta.dataUpTo||'–'}</b><br>Team average score: <b>${N(r.meta.avg,2)}</b></p>${r.warnings.map(w=>`<p class="warn">⚠ ${esc(w)}</p>`).join('')}<p class="stamp">Confirming publishes this data for everyone who opens the link.</p><div style="display:flex;gap:8px"><button class="btn" data-a="confirm">Confirm &amp; publish</button><button class="btn sec" data-a="close">Cancel</button></div>`)}
+ catch(e){upUI(e.code==='password'?'Wrong password. Please try again.':e.code==='missing'?'Missing sheet: '+e.message:e.code==='layout'?'Unrecognised layout: '+e.message:'Could not read file: '+e.message)}}
+async function confirm(){const r=pend,old=D;const tk=tkv();if(!tk)return upUI('GitHub token dite hobe (shudhu editor-der jonno).');
+ const nd={meta:{...r.meta,uploadedAt:Date.now()},agents:r.agents,history:(old.history||[]).concat([{at:Date.now(),month:r.meta.month,upto:r.meta.dataUpTo,n:r.meta.agents,avg:r.meta.avg}]).slice(-60)};
+ modal('<p>GitHub-e publish hochche…</p>');
+ try{const host=location.hostname,o=CFG.owner||host.split('.')[0],rp=CFG.repo||location.pathname.split('/')[1],br=CFG.branch,api=`https://api.github.com/repos/${o}/${rp}/contents/data.json`,hd={Authorization:'Bearer '+tk,Accept:'application/vnd.github+json'};
+  const g=await fetch(api+'?ref='+br,{headers:hd});if(g.status===401)throw new Error('Token thik noy ba expire hoyeche.');
+  const sha=g.ok?(await g.json()).sha:undefined;
+  const p=await fetch(api,{method:'PUT',headers:hd,body:JSON.stringify({message:'Data update '+r.meta.month+' (up to '+r.meta.dataUpTo+')',content:btoa(unescape(encodeURIComponent(JSON.stringify(nd)))),sha,branch:br})});
+  if(!p.ok){const j=await p.json().catch(()=>({}));throw new Error((p.status===403||p.status===404?'Write permission nei, token-e Contents: Read and write lagbe, ar repo name thik thakte hobe. ':'')+(j.message||p.status))}
+  D=nd;render();modal('<p>✅ GitHub-e commit hoyeche. Public link-e proy 1 minute-e live hobe (GitHub Pages rebuild).</p><button class="btn" data-a="close">OK</button>')}catch(e){upUI('Publish failed: '+e.message)}}
+document.addEventListener('click',e=>{const t=e.target.closest('button,th');if(!t)return;
+ if(t.classList.contains('btn')){const r=document.createElement('span'),b=t.getBoundingClientRect(),z=Math.max(b.width,b.height);r.className='rip';r.style.cssText=`width:${z}px;height:${z}px;left:${e.clientX-b.left-z/2}px;top:${e.clientY-b.top-z/2}px`;t.appendChild(r);setTimeout(()=>r.remove(),600)}
+ const a=t.dataset.a;if(t.dataset.n){S.sec=t.dataset.n;render()}else if(t.dataset.s){const[i,c]=t.dataset.s.split('|'),x=TB[i];x.d=x.sk==+c?-x.d:1;x.sk=+c;$('#tb-'+i).innerHTML=tbody(i)}else if(t.dataset.x)exp(t.dataset.x);
+ else if(a==='theme'){const c=document.documentElement,d=(c.dataset.theme||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'))==='dark';c.dataset.theme=d?'light':'dark'}
+ else if(a==='menu')$('#nav').classList.toggle('on');else if(a==='up')upUI();else if(a==='close')$('#modal').classList.remove('on');else if(a==='read')read();else if(a==='confirm')confirm()});
+document.addEventListener('input',e=>{const i=e.target.dataset.q;if(i){TB[i].q=e.target.value;$('#tb-'+i).innerHTML=tbody(i)}});
+document.addEventListener('change',e=>{if('ag' in e.target.dataset){S.ag=e.target.value;render()}if('me' in e.target.dataset){S.me=e.target.value;render()}});
+fetch('data.json?'+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{D=d;render()}).catch(()=>{$('#view').innerHTML='<div class="card"><b>data.json load hoyni.</b> Site-ta GitHub Pages (ba kono web server) theke kholun, file theke noy.</div>'}).finally(()=>setTimeout(()=>$('#splash').classList.add('out'),900));
+})();
+</script></body></html>
