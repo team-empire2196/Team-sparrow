@@ -1,30 +1,38 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Team Sparrow – Performance Dashboard</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%236b1f8f'/%3E%3Cpath d='M12 38c4-12 16-18 28-14l8-6-2 10c3 3 4 8 2 12-6 6-16 8-24 4l-8 4z' fill='%23f6e3cc'/%3E%3Ccircle cx='41' cy='28' r='2' fill='%232a1a10'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231565a8'/%3E%3Cpath d='M12 38c4-12 16-18 28-14l8-6-2 10c3 3 4 8 2 12-6 6-16 8-24 4l-8 4z' fill='%23f6e3cc'/%3E%3Ccircle cx='41' cy='28' r='2' fill='%232a1a10'/%3E%3C/svg%3E">
 <style>
-:root{--bg:#fbf5fc;--card:#fff;--ink:#2a1233;--mut:#7a6588;--line:#e6d3ea;--p1:#6b1f8f;--p2:#b0237f;--p3:#d77ac9;--soft:#f3e6f6;--g:#2e8b57;--w:#d98e04;--c:#c0392b;--gold:#e3a72f;--sh:0 1px 3px rgba(60,10,70,.1);color-scheme:light}
-:root[data-theme=dark]{--bg:#150a1d;--card:#21122d;--ink:#f5e8f8;--mut:#bc9dc9;--line:#3d2350;--p1:#d58bf2;--p2:#e25cb5;--p3:#8e3f96;--soft:#2f1b3d;--g:#4cc38a;--w:#f0b43c;--c:#ee6a5a;--sh:0 1px 3px rgba(0,0,0,.4);color-scheme:dark}
-@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#150a1d;--card:#21122d;--ink:#f5e8f8;--mut:#bc9dc9;--line:#3d2350;--p1:#d58bf2;--p2:#e25cb5;--p3:#8e3f96;--soft:#2f1b3d;--g:#4cc38a;--w:#f0b43c;--c:#ee6a5a;--sh:0 1px 3px rgba(0,0,0,.4);color-scheme:dark}}
+:root{--bg:#f1f8ff;--card:#fff;--ink:#0f2338;--mut:#58718a;--line:#d3e5f6;--p1:#1565a8;--p2:#2e93dc;--p3:#8fd0fb;--soft:#e2f1fd;--g:#2e8b57;--w:#d98e04;--c:#c0392b;--gold:#e3a72f;--sh:0 1px 3px rgba(20,70,120,.1);color-scheme:light}
+:root[data-theme=dark]{--bg:#0a1827;--card:#11263a;--ink:#e8f3fd;--mut:#9bb8d1;--line:#22425e;--p1:#66b8f6;--p2:#3b97df;--p3:#2a6fa8;--soft:#16304a;--g:#4cc38a;--w:#f0b43c;--c:#ee6a5a;--sh:0 1px 3px rgba(0,0,0,.4);color-scheme:dark}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0a1827;--card:#11263a;--ink:#e8f3fd;--mut:#9bb8d1;--line:#22425e;--p1:#66b8f6;--p2:#3b97df;--p3:#2a6fa8;--soft:#16304a;--g:#4cc38a;--w:#f0b43c;--c:#ee6a5a;--sh:0 1px 3px rgba(0,0,0,.4);color-scheme:dark}}
 *{box-sizing:border-box}html,body{margin:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;display:flex;min-height:100vh}
-#splash{position:fixed;inset:0;background:linear-gradient(135deg,#3d0f5c,#a01f7c);z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;transition:opacity .6s .9s,visibility 0s 1.5s}
+#splash{position:fixed;inset:0;background:linear-gradient(135deg,#0d4f8f,#3aa6ec);z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;transition:opacity .6s .9s,visibility 0s 1.5s}
 #splash svg{width:96px;height:96px;animation:pop .8s ease both}#splash h1{margin:14px 0 0;font-size:26px;letter-spacing:.5px;animation:pop .8s .2s ease both}#splash.out{opacity:0;visibility:hidden}
 @keyframes pop{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:none}}
-nav{width:230px;background:linear-gradient(180deg,#42106a,#8f1f72);color:#fff;padding:14px 10px;position:sticky;top:0;height:100vh;overflow:auto;flex:none;transition:transform .25s}
+nav{width:230px;background:linear-gradient(180deg,#0e4d8a,#2f97df);color:#fff;padding:14px 10px;position:sticky;top:0;height:100vh;overflow:auto;flex:none;transition:transform .25s}
 nav .br{display:flex;gap:10px;align-items:center;padding:4px 8px 14px;font-weight:700;font-size:16px}nav .br svg{width:38px;height:38px;flex:none}
-nav button{display:block;width:100%;text-align:left;background:none;border:0;color:#f3dcf5;padding:9px 12px;border-radius:8px;font:inherit;cursor:pointer;margin:2px 0;transition:background .2s,transform .2s}
+nav button{display:block;width:100%;text-align:left;background:none;border:0;color:#e3f2ff;padding:9px 12px;border-radius:8px;font:inherit;cursor:pointer;margin:2px 0;transition:background .2s,transform .2s}
 nav button:hover{background:rgba(255,255,255,.12);transform:translateX(2px)}nav button.on{background:rgba(255,255,255,.2);color:#fff;font-weight:600;box-shadow:inset 3px 0 var(--gold)}
 main{flex:1;min-width:0;padding:16px 20px 40px}
 header{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
 header h2{margin:0;font-size:22px}.stamp{color:var(--mut);font-size:12px}
 #menu{display:none}
 .btn{position:relative;overflow:hidden;border:0;border-radius:8px;padding:8px 14px;font:inherit;cursor:pointer;background:linear-gradient(135deg,var(--p1),var(--p2));color:#fff;transition:transform .15s,box-shadow .15s}
-.btn:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(140,30,150,.3)}.btn.sec{background:var(--soft);color:var(--ink);border:1px solid var(--line)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(30,120,200,.3)}.btn.sec{background:var(--soft);color:var(--ink);border:1px solid var(--line)}
 .rip{position:absolute;border-radius:50%;background:rgba(255,255,255,.5);transform:scale(0);animation:rp .6s linear;pointer-events:none}@keyframes rp{to{transform:scale(4);opacity:0}}
-#fly{position:fixed;top:28%;left:-140px;width:96px;z-index:70;pointer-events:none;opacity:0;filter:drop-shadow(0 6px 8px rgba(0,0,0,.25))}#fly.go{animation:flyx 1.2s cubic-bezier(.4,.1,.6,.9)}@keyframes flyx{0%{left:-140px;opacity:0;transform:translateY(60px) rotate(-10deg)}12%{opacity:1}35%{transform:translateY(-20px) rotate(6deg)}65%{transform:translateY(25px) rotate(-6deg)}100%{left:105vw;opacity:0;transform:translateY(-50px) rotate(8deg)}}#fly .wing{transform-origin:30px 38px;animation:flap .16s infinite alternate}@keyframes flap{to{transform:scaleY(.35) rotate(10deg)}}.sec{animation:fi .4s ease both}@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+#flock{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}.bird{position:absolute;left:-130px;opacity:0;animation-name:flyx;animation-timing-function:linear;animation-fill-mode:both;filter:drop-shadow(0 4px 5px rgba(0,0,0,.22))}.bird .wing{transform-origin:30px 38px;animation:flap .3s infinite alternate ease-in-out}@keyframes flyx{0%{left:-130px;opacity:0;transform:translateY(0) rotate(-4deg)}6%{opacity:1}25%{transform:translateY(-22px) rotate(4deg)}50%{transform:translateY(16px) rotate(-5deg)}75%{transform:translateY(-14px) rotate(4deg)}94%{opacity:1}100%{left:108vw;opacity:0;transform:translateY(8px) rotate(-3deg)}}@keyframes flap{to{transform:scaleY(.35) rotate(10deg)}}.hero{background:linear-gradient(135deg,#0d4f8f,#3aa6ec);color:#fff;border-radius:16px;padding:18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin:12px 0;box-shadow:0 8px 22px rgba(20,100,170,.25)}
+.av{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;flex:none}
+.hero h2{margin:0;font-size:20px}.hero small{opacity:.9}.hs{display:flex;gap:10px;flex-wrap:wrap;margin-left:auto}.hs div{background:rgba(255,255,255,.17);border-radius:12px;padding:8px 14px;text-align:center;min-width:78px}.hs b{display:block;font-size:22px}
+.kg{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));margin-bottom:14px}
+.kc{border-left:5px solid var(--sc,var(--line))}.kc.click{cursor:pointer}.kc.click:hover{box-shadow:0 8px 20px rgba(30,110,190,.24)}.kc .big{font-size:26px;font-weight:700;color:var(--p1);margin:2px 0}.kc .go{font-size:11px;color:var(--p2);font-weight:700;margin-top:4px}.kc .ico{font-size:20px}.kc .row span:first-child{width:62px}
+.kv{display:flex;justify-content:space-between;gap:8px;padding:5px 0;border-bottom:1px dashed var(--line);font-size:13px}.kv:last-child{border:0}.kv span:first-child{color:var(--mut)}
+.ac{cursor:pointer;display:flex;gap:12px;align-items:center}.ac .av{width:46px;height:46px;font-size:16px;background:linear-gradient(135deg,var(--p1),var(--p2));color:#fff}
+.pnl{border:2px solid var(--p2);background:linear-gradient(180deg,var(--soft),var(--card));margin-bottom:14px}.pnl .card{box-shadow:none}
+.sec{animation:fi .4s ease both}@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));margin-bottom:14px}
 .g2{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-bottom:14px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:var(--sh);transition:transform .2s,box-shadow .2s;min-width:0}
-.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(80,20,90,.14)}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(30,100,170,.16)}
 .tile .l{color:var(--mut);font-size:12px}.tile b{display:block;font-size:24px;color:var(--p1);margin-top:2px}.tile small{color:var(--mut);font-size:11px}
 h3{margin:0 0 10px;font-size:15px;color:var(--p1)}
 .bar{height:10px;background:var(--soft);border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--p1),var(--p3));border-radius:6px;transition:width 1s ease}
@@ -37,15 +45,15 @@ th{background:var(--soft);color:var(--p1);cursor:pointer;position:sticky;top:0;u
 .aw{display:flex;gap:10px;align-items:center}.aw .ic{font-size:26px}.gold{color:var(--gold)}
 .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.cal div{border-radius:8px;padding:6px 2px;text-align:center;font-size:12px;border:1px solid var(--line)}.cal .P{background:color-mix(in srgb,var(--g) 18%,transparent)}.cal .A{background:color-mix(in srgb,var(--c) 20%,transparent)}.cal .O{background:var(--soft);color:var(--mut)}
 svg.ch{width:100%;height:auto;display:block}.dr{stroke-dasharray:1200;stroke-dashoffset:1200;animation:dw 1.4s ease forwards}@keyframes dw{to{stroke-dashoffset:0}}
-#modal{position:fixed;inset:0;background:rgba(20,5,30,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}#modal.on{display:flex}#modal .card{width:min(520px,100%);max-height:90vh;overflow:auto}
+#modal{position:fixed;inset:0;background:rgba(5,20,35,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}#modal.on{display:flex}#modal .card{width:min(520px,100%);max-height:90vh;overflow:auto}
 .warn{color:var(--w);font-size:12px}.err{color:var(--c);font-weight:600}
 @media(max-width:800px){nav{position:fixed;z-index:40;transform:translateX(-105%);left:0;top:0}nav.on{transform:none}#menu{display:inline-block}main{padding:12px}}
-@media(prefers-reduced-motion:reduce){#fly{display:none}*{animation:none!important;transition:none!important}.dr{stroke-dashoffset:0}#splash{display:none}}
+@media(prefers-reduced-motion:reduce){#flock{display:none}*{animation:none!important;transition:none!important}.dr{stroke-dashoffset:0}#splash{display:none}}
 </style></head><body>
 <div id="splash"><svg viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#fff" fill-opacity=".14"/><path d="M12 38c4-12 16-18 28-14l8-6-2 10c3 3 4 8 2 12-6 6-16 8-24 4l-8 4z" fill="#f6e3cc"/><circle cx="41" cy="28" r="2" fill="#2a1a10"/></svg><h1>Team Sparrow</h1></div>
 <nav id="nav"><div class="br"><svg viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#fff" fill-opacity=".16"/><path d="M12 38c4-12 16-18 28-14l8-6-2 10c3 3 4 8 2 12-6 6-16 8-24 4l-8 4z" fill="#f6e3cc"/><circle cx="41" cy="28" r="2" fill="#2a1a10"/></svg><span>Team Sparrow</span></div><div id="links"></div></nav>
 <main><header><div style="display:flex;gap:8px;align-items:center"><button class="btn sec" id="menu" data-a="menu">☰</button><h2 id="title"></h2></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sec" data-a="theme">◐ Theme</button><button class="btn" id="upb" data-a="up">Update Data</button></div></header><div class="stamp" id="stamp"></div><div id="view"></div></main>
-<div id="fly"><svg viewBox="0 0 64 64"><path d="M12 38c4-12 16-18 28-14l8-6-2 10c3 3 4 8 2 12-6 6-16 8-24 4l-8 4z" fill="#8b5a3c"/><path d="M22 44c6 3 14 2 20-3 1 4-1 7-4 9-6 3-13 2-16-6z" fill="#ead8c0"/><path class="wing" d="M20 36c4-12 16-16 24-10-3 8-12 14-24 10z" fill="#5a3722"/><circle cx="41" cy="28" r="2" fill="#fff"/><circle cx="41.6" cy="28" r="1" fill="#000"/><path d="M48 21l9 3-9 3z" fill="#e3a72f"/></svg></div>
+<div id="flock"></div>
 <div id="modal"><div class="card" id="mbody"></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
@@ -146,8 +154,12 @@ function parse(XLSX,bytes,log){
  if(S.esc){const r=R(S.esc);notes.esc=r[0]&&r[0][0];r.slice(2).forEach(x=>{if(!x[0])return;const a=A(null,x[0]);if(a)a.esc={inv:num(x[1]),val:num(x[2]),tot:num(x[3]),acc:num(x[4])}})}
  if(S.ort){const r=R(S.ort),H={};(r[0]||[]).forEach((v,i)=>H[nn(v)]=i);r.slice(1).forEach(x=>{const a=A(x[H.id],x[H.name]);if(a)a.ort={aht:num(x[H.aht]),lag:x[H.lagtime],login:num(x[H.logincompliance]),extra:x[H.extrabreak],brk:sec(x[H.breaktime]),adh:num(x[H.adherence]),shr:num(x[H.unplannedshrinkage])}})}
  let lastD=null;
- if(S.att){const r=R(S.att);r.slice(1).forEach(x=>{const a=byId[String(x[2])];if(!a||typeof x[1]!=='number')return;const d=dOf(x[1]);if(!monthD)monthD=d;
-  const st=x[22]==1?'P':x[23]==1?'A':'O';a.att.push({d:d.getUTCDate(),st,calls:num(x[9])||0});if(st==='P'&&x[9]>0&&(!lastD||d>lastD))lastD=d})}
+ if(S.att){const r=R(S.att),H={};(r[0]||[]).forEach((v,i)=>{H[nn(v)]=i});const g=(k,i)=>H[k]!=null?H[k]:i;
+  const ci={dt:g('date',1),id:g('id',2),ro:g('roster',5),tr:g('targetready',8),ca:g('acdcalls',9),li:g('logintime',13),lo:g('logouttime',14),ls:g('loginlogoutstatus',15),rr:g('readytime',16),pr:g('payrollready',17),bk:g('breaktime',18),lp:g('login',19),pc:g('presentcount',22),ac:g('absentcount',23)};
+  r.slice(1).forEach(x=>{const a=byId[String(x[ci.id])];if(!a||typeof x[ci.dt]!=='number')return;const d=dOf(x[ci.dt]);if(!monthD)monthD=d;
+   const st=x[ci.pc]==1?'P':x[ci.ac]==1?'A':'O';
+   a.att.push({d:d.getUTCDate(),ds:Math.floor(x[ci.dt]),st,calls:num(x[ci.ca])||0,sh:x[ci.ro]==null?null:String(x[ci.ro]),tr:sec(x[ci.tr]),rd:sec(x[ci.pr]),li:num(x[ci.li]),lo:num(x[ci.lo]),ls:num(x[ci.ls]),lp:num(x[ci.lp]),bk:sec(x[ci.bk])});
+   if(st==='P'&&x[ci.ca]>0&&(!lastD||d>lastD))lastD=d})}
  if(!monthD)monthD=new Date();
  if(!lastD){agents.forEach(a=>(a.aht?a.aht.days:[]).forEach(d=>{const dd=new Date(Date.UTC(monthD.getUTCFullYear(),monthD.getUTCMonth(),d.d));if(!lastD||dd>lastD)lastD=dd}))}
  const fmt=d=>d.toISOString().slice(0,10);
@@ -159,6 +171,7 @@ function parse(XLSX,bytes,log){
 return{parse,nn,PARAMS}})();
 
 
+
 (()=>{
 let D={meta:{notes:{}},agents:[],history:[]};const CFG={owner:'',repo:'',branch:'main'};
 const $=s=>document.querySelector(s),esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -168,8 +181,8 @@ const T=v=>isN(v)?Math.floor(v/3600)+'h '+String(Math.floor(v%3600/60)).padStart
 const avg=a=>{const x=a.filter(isN);return x.length?x.reduce((s,b)=>s+b,0)/x.length:null};
 const K=(a,n)=>a.kpi.find(k=>k.k===n)||{};
 const AHTT=180,QUAL=1.97;
-const SEC=[['dash','Dashboard'],['me','My Performance'],['audit','Audit Details'],['emp','Parameter Empathy'],['fcr','FCR, Quiz and SD'],['dkb','Complaint and DKB'],['lag','Lag and Adherence'],['aht','Overall & Week CFS/AHT'],['dwise','Day Wise CFS/AHT']];
-let S={sec:'dash',ag:'all',me:'',cur:0};const TB={};
+const SEC=[['dash','Dashboard'],['me','My Performance'],['aht','Overall & Week CFS/AHT'],['dwise','Day Wise CFS/AHT']];
+let S={sec:'dash',ag:'all',me:'',cur:0,panel:null};const SPAR=`<svg viewBox="0 0 64 64" style="width:100%;display:block"><path d="M12 38c4-12 16-18 28-14l8-6-2 10c3 3 4 8 2 12-6 6-16 8-24 4l-8 4z" fill="#8b5a3c"/><path d="M22 44c6 3 14 2 20-3 1 4-1 7-4 9-6 3-13 2-16-6z" fill="#ead8c0"/><path class="wing" d="M20 36c4-12 16-16 24-10-3 8-12 14-24 10z" fill="#5a3722"/><circle cx="41" cy="28" r="2" fill="#fff"/><circle cx="41.6" cy="28" r="1" fill="#000"/><path d="M48 21l9 3-9 3z" fill="#e3a72f"/></svg>`;function flock(){const f=document.getElementById('flock');f.innerHTML='';for(let i=0;i<25;i++){const b=document.createElement('div');b.className='bird';b.style.cssText=`top:${(4+Math.random()*86).toFixed(1)}%;width:${(34+Math.random()*46).toFixed(0)}px;animation-duration:${(4.5+Math.random()*2.5).toFixed(2)}s;animation-delay:${(Math.random()*1.6).toFixed(2)}s`;b.innerHTML=SPAR;f.appendChild(b)}setTimeout(()=>{f.innerHTML=''},9000)}const TB={};
 const pill=(c,t)=>`<span class="pill p${c}">${t}</span>`;
 function st(k){const v=k.v,t=k.t;if(isN(v)&&isN(t)){const ok=k.low?v<=t:v>=t;return ok?'g':(k.s>0?'w':'c')}return isN(k.s)?(k.s>0?'g':'c'):'n'}
 const stT={g:'On target',w:'Near',c:'Below',n:'No data'};
@@ -223,21 +236,54 @@ ${extra(l)}<div class="g2"><div class="card"><h3>Grade distribution</h3>${G.map(
 <h3>Gamification and Awards</h3><div class="grid">${aw.map(([i,t,a,f])=>`<div class="card aw"><span class="ic gold">${i}</span><div><div class="l stamp">${t}</div><b>${a?esc(a.name):'–'}</b><div class="stamp">${a?f(a):''}</div></div></div>`).join('')}</div>
 <div class="g2"><div class="card"><h3>% of agents meeting each KPI target</h3>${meet.map(m=>brow(m.n,m.p)).join('')}</div>
 <div class="card"><h3>Focus areas</h3><p>💪 Strongest KPI: <b>${sm[0]?esc(sm[0].n)+' ('+P(sm[0].p)+')':'–'}</b></p><p>🔻 Weakest KPI: <b>${sm.length?esc(sm[sm.length-1].n)+' ('+P(sm[sm.length-1].p)+')':'–'}</b></p><h3 style="margin-top:14px">Agents at risk (${risk.length})</h3>${risk.map(a=>`<div>${esc(a.name)} ${grd(a)} <span class="stamp">${N(a.final,2)}</span></div>`).join('')||'None 🎉'}</div></div>
-<div class="g2"><div class="card"><h3>Daily AHT (sec) – team average</h3>${line([{c:'var(--p2)',p:ahtD.slice(0,nd)}],{t:AHTT})}</div><div class="card"><h3>Daily CSAT / CFS score</h3>${line([{c:'var(--g)',p:csD.slice(0,nd)}],{pc:1})}</div></div>
-<div class="card"><h3>Daily calls handled (attendance sheet)</h3>${bars(clD.slice(0,nd))}</div><br>
-<div class="card"><h3>History of uploads – team average score</h3>${(D.history||[]).length?`<div class="tw"><table><tr><th>Uploaded</th><th>Month</th><th>Data up to</th><th>Agents</th><th>Avg score</th></tr>${D.history.slice().reverse().map(h=>`<tr><td>${new Date(h.at).toLocaleString()}</td><td>${h.month}</td><td>${h.upto||'–'}</td><td>${h.n}</td><td>${N(h.avg,2)}</td></tr>`).join('')}</table></div>`:'<span class="stamp">History starts with the next upload.</span>'}</div>`}
-function me(){const a=D.agents.find(x=>x.id===S.me);const sel=`<select data-me><option value="">— Select your name —</option>${D.agents.map(x=>`<option value="${x.id}" ${S.me===x.id?'selected':''}>${esc(x.name)}</option>`).join('')}</select>`;
- const team=tbl('team',[{h:'Rank',v:rankOf},nameC,{h:'Type',v:a=>a.grp},{h:'Final score',v:a=>a.final,r:a=>N(a.final,2)},{h:'Grade',v:a=>a.grade,r:grd},pc('AHT',a=>K(a,'AHT (sec)').v)&&{h:'AHT',v:a=>K(a,'AHT (sec)').v,r:a=>N(K(a,'AHT (sec)').v,0)},pc('CSAT',a=>K(a,'CSAT / CFS').v)],D.agents.slice().sort((x,y)=>rankOf(x)-rankOf(y)),note('dkb'));
- if(!a)return`<div class="tb">${sel}</div><h3>Whole team</h3>${team}`;
- const rows=a.kpi.map(k=>({k,s:st(k)}));
- const cal=a.att.length?`<div class="cal">${a.att.map(x=>`<div class="${x.st}"><b>${x.d}</b><br>${x.st==='P'?x.calls+' calls':x.st==='A'?'Absent':'Off'}</div>`).join('')}</div><div class="stamp" style="margin-top:6px">Green present · Red absent · Grey day off</div>`:'<span class="stamp">No attendance rows for this agent in the workbook.</span>';
- const cd=a.cfs?a.cfs.days:[],ad=a.aht?a.aht.days:[],nd=Math.max(cd.length,ad.length,28);
- const pd=(arr,f)=>Array.from({length:nd},(_,i)=>{const x=arr.find(z=>z.d===i+1);return x?f(x):null});
- return`<div class="tb">${sel}</div><div class="grid">${tile('Rank in team',rankOf(a),'0','of '+D.agents.length)}${tile('Total score',a.score,'2','of '+N(a.tot,0)+' scorable')}${tile('Final score',a.final,'2')}<div class="card tile"><span class="l">Grade</span><b>${esc(a.grade)}</b><small>Eligibility: ${esc(a.elig)}</small></div></div>
-<div class="card"><h3>KPI scorecard – ${esc(a.name)}</h3><div class="tw"><table><tr><th>Parameter</th><th>Target</th><th>Actual</th><th>KPI score</th><th>Status</th></tr>${rows.map(r=>`<tr><td>${r.k.k}</td><td>${r.k.t==null?'–':fv(r.k,r.k.t)}</td><td>${fv(r.k,r.k.v)}</td><td>${N(r.k.s,2)}</td><td>${pill(r.s,stT[r.s])}</td></tr>`).join('')}<tr><th>Total</th><th></th><th>Final: ${N(a.final,2)}</th><th>${N(a.score,2)}</th><th>${grd(a)}</th></tr></table></div></div><br>
-<div class="g2"><div class="card"><h3>Day-wise CFS score</h3>${a.cfs?`${line([{c:'var(--p2)',p:pd(cd,x=>x.cs+x.ds>0?x.sc:null)}],{pc:1})}<div class="stamp">Monthly: CSAT ${N(a.cfs.m.cs,0)} · DSAT ${N(a.cfs.m.ds,0)} · Score <b>${P(a.cfs.m.sc)}</b></div><div class="tw" style="max-height:240px"><table><tr><th>Day</th><th>CSAT</th><th>DSAT</th><th>Score</th></tr>${cd.filter(x=>x.cs+x.ds>0).map(x=>`<tr><td>${x.d}</td><td>${x.cs}</td><td>${x.ds}</td><td>${P(x.sc)}</td></tr>`).join('')}</table></div>`:'<span class="stamp">No CFS tracker row for this agent.</span>'}</div>
-<div class="card"><h3>Day-wise AHT vs target (${AHTT}s)</h3>${a.aht?`${line([{c:'var(--p1)',p:pd(ad,x=>x.aht)}],{t:AHTT})}<div class="stamp">Monthly: AHT <b>${N(a.aht.m.aht,0)}s</b> · Staff time ${T(a.aht.m.st)} · AUX ${T(a.aht.m.aux)}</div><div class="tw" style="max-height:240px"><table><tr><th>Day</th><th>AHT</th><th>vs target</th><th>Staff</th><th>AUX</th></tr>${ad.filter(x=>isN(x.aht)).map(x=>`<tr><td>${x.d}</td><td>${N(x.aht,0)}</td><td>${pill(x.aht<=AHTT?'g':'c',x.aht<=AHTT?'Within':'Over')}</td><td>${T(x.st)}</td><td>${T(x.aux)}</td></tr>`).join('')}</table></div>`:'<span class="stamp">No AHT tracker row.</span>'}</div></div>
-<div class="g2"><div class="card"><h3>Attendance calendar &amp; daily calls</h3>${cal}</div><div class="card"><h3>Whole team ranking</h3><div class="stamp">Pick another name above to switch.</div></div></div>`}
+`}
+const ICO={'Critical Error %':'🎯','Empathy':'💙','FCR':'✅','Complaint Escalation Accuracy':'📣','Service Delivery':'🛎️','Schedule Adherence':'🗓️','Login Compliance':'⏱️','AHT (sec)':'⚡','CSAT / CFS':'⭐','Break (extra)':'☕','DKB Attendance':'📚','Quiz Score':'🧠'};
+const PNL={'AHT (sec)':'aht','CSAT / CFS':'csat','Login Compliance':'login','Schedule Adherence':'login'};
+const SC={g:'var(--g)',w:'var(--w)',c:'var(--c)',n:'var(--line)'};
+const ini=n=>n.split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase();
+const kvs=r=>r.map(x=>`<div class="kv"><span>${x[0]}</span><b>${x[1]}</b></div>`).join('');
+const txt=(l,v,s)=>`<div class="card tile"><span class="l">${l}</span><b>${v}</b><small>${s||''}</small></div>`;
+const DAYL=d=>{const y=+D.meta.month.slice(0,4),m=+D.meta.month.slice(5,7);return d+' '+MON()+' · '+['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][new Date(Date.UTC(y,m-1,d)).getUTCDay()]};
+const tod=v=>{if(!isN(v))return'–';const s=Math.round((v-Math.floor(v))*86400);return String(Math.floor(s/3600)%24).padStart(2,'0')+':'+String(Math.floor(s%3600/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
+const mmss=m=>{const s=Math.round(m*60);return Math.floor(s/60)+'m '+String(s%60).padStart(2,'0')+'s'};
+const pcc=(v,t,low)=>isN(v)?pill(isN(t)?((low?v<=t:v>=t)?'g':'c'):'n',P(v)):P(v);
+function shiftDiff(x){const m=/^(\d{2})(\d{2})-(\d{2})(\d{2})$/.exec(x.sh||'');if(!m||!isN(x.ds))return{};const s=+m[1]*60+ +m[2];let e=+m[3]*60+ +m[4];if(e<=s)e+=1440;return{late:isN(x.li)?(x.li-(x.ds+s/1440))*1440:null,early:isN(x.lo)?(x.ds+e/1440-x.lo)*1440:null}}
+const pwrap=(t,b)=>`<div class="card pnl" id="panel"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap"><h3 style="margin:0">${t}</h3><button class="btn sec" data-a="pclose">✕ Close</button></div>${b}</div>`;
+function pAHT(a){const ds=(a.aht?a.aht.days:[]).filter(x=>isN(x.aht)),k=K(a,'AHT (sec)'),T0='⚡ Day-wise AHT';
+ if(!ds.length)return pwrap(T0,'<span class="stamp">No AHT tracker data for this agent.</span>');
+ const ok=ds.filter(x=>x.aht<=AHTT).length,bs=ds.reduce((m,x)=>x.aht<m.aht?x:m),ws=ds.reduce((m,x)=>x.aht>m.aht?x:m);
+ return pwrap(T0+' – '+esc(a.name),`<div class="grid">${tile('Monthly AHT (sec)',a.aht.m.aht,'0','KPI target '+N(k.t,0))}${tile('Days within '+AHTT+'s',ok,'0','of '+ds.length+' working days')}${tile('Best day (sec)',bs.aht,'0',DAYL(bs.d))}${tile('Slowest day (sec)',ws.aht,'0',DAYL(ws.d))}${txt('Staff time',HMS(a.aht.m.st),'Month total')}${txt('AUX',HMS(a.aht.m.aux),'Month total')}</div>`+tbl('p_aht',[{h:'Day',v:x=>x.d,r:x=>DAYL(x.d)},{h:'Staff time',v:x=>x.st,r:x=>HMS(x.st)},{h:'AUX',v:x=>x.aux,r:x=>HMS(x.aux)},{h:'AHT (sec)',v:x=>Math.round(x.aht)},{h:'vs '+AHTT+'s',v:x=>Math.round(x.aht-AHTT),r:x=>pill(x.aht<=AHTT?'g':'c',(x.aht<=AHTT?'':'+')+Math.round(x.aht-AHTT)+'s')}],ds))}
+function pCSAT(a){const ds=(a.cfs?a.cfs.days:[]).filter(x=>x.cs+x.ds>0),T0='⭐ Day-wise CSAT / CFS';
+ if(!ds.length)return pwrap(T0,'<span class="stamp">No CFS tracker data for this agent.</span>');
+ const bs=ds.reduce((m,x)=>x.sc>m.sc?x:m),ws=ds.reduce((m,x)=>x.sc<m.sc?x:m);
+ return pwrap(T0+' – '+esc(a.name),`<div class="grid">${tile('Monthly score',a.cfs.m.sc,'p','Target '+P(K(a,'CSAT / CFS').t))}${tile('Total CSAT',a.cfs.m.cs,'0')}${tile('Total DSAT',a.cfs.m.ds,'0')}${tile('Best day',bs.sc,'p',DAYL(bs.d))}${tile('Lowest day',ws.sc,'p',DAYL(ws.d))}</div>`+tbl('p_csat',[{h:'Day',v:x=>x.d,r:x=>DAYL(x.d)},{h:'CSAT',v:x=>x.cs},{h:'DSAT',v:x=>x.ds},{h:'Responses',v:x=>x.cs+x.ds},{h:'Score',v:x=>Math.round(x.sc*1000)/10,r:x=>scp(x.sc)}],ds))}
+function pLogin(a){const T0='⏱️ Login / Logout adherence & lag';const work=a.att.filter(x=>x.sh&&!/dayoff/i.test(x.sh));
+ if(!work.length)return pwrap(T0,'<span class="stamp">No Attendance-sheet rows for this agent in the workbook.</span>');
+ const miss=work.filter(x=>x.ls===0.5||x.ls===0),half=work.filter(x=>x.ls===0.5).length,zero=work.filter(x=>x.ls===0).length,perfect=work.filter(x=>x.ls===1).length;
+ const mrows=miss.map(x=>{const df=shiftDiff(x),pt=[];if(df.late>0.5)pt.push('Late login '+mmss(df.late));if(df.early>0.5)pt.push('Early logout '+mmss(df.early));return{x,t:x.ls===0?(pt.join(' · ')||'No login / logout record'):(pt.join(' · ')||'Login / Logout miss')}});
+ const lag=work.map(x=>({x,l:isN(x.tr)&&x.tr>0?Math.max(0,x.tr-(x.rd||0)):0})).filter(z=>z.l>1),tot=lag.reduce((s,z)=>s+z.l,0);
+ return pwrap(T0+' – '+esc(a.name),`<h3>1. Adherence (LoginLogout Status)</h3><div class="grid">${tile('Rostered working days',work.length,'0')}${tile('Perfect days (1)',perfect,'0')}${tile('Login / Logout miss (0.5)',half,'0')}${tile('Absent (0)',zero,'0')}${txt('Adherence KPI',P(K(a,'Schedule Adherence').v))}</div>`
+ +(mrows.length?tbl('p_miss',[{h:'Date',v:r=>r.x.d,r:r=>DAYL(r.x.d)},{h:'Shift',v:r=>r.x.sh},{h:'Login time',v:r=>tod(r.x.li)},{h:'Logout time',v:r=>tod(r.x.lo)},{h:'Status',v:r=>r.x.ls,r:r=>r.x.ls===0?pill('c','Absent (0)'):pill('w','Login/Logout miss (0.5)')},{h:'Details',v:r=>r.t}],mrows):'<p>🎉 No adherence miss in this period.</p>')
+ +`<h3 style="margin-top:16px">2. Login hour compliance – days with lag</h3><div class="grid">${tile('Days with lag',lag.length,'0')}${txt('Total lag (daily sum)',HMS(tot),'Target ready − ready')}${txt('KPI sheet lag',isN(a.lag)?HMS(Math.round(a.lag*86400)):esc(a.lag||'–'),'Official figure')}${txt('Login compliance',P(K(a,'Login Compliance').v))}${txt('Ready / Target',HMS(a.ready)+' / '+HMS(a.target),'Month hours')}</div>`
+ +(lag.length?tbl('p_lag',[{h:'Date',v:z=>z.x.d,r:z=>DAYL(z.x.d)},{h:'Shift',v:z=>z.x.sh},{h:'Target ready',v:z=>z.x.tr,r:z=>HMS(z.x.tr)},{h:'Ready',v:z=>z.x.rd||0,r:z=>HMS(z.x.rd||0)},{h:'Lag',v:z=>z.l,r:z=>pill('c',HMS(z.l))},{h:'Login %',v:z=>z.x.lp,r:z=>P(z.x.lp)},{h:'Note',v:z=>z.x.ls===0?'Absent day (full target counted)':''}],lag,'Daily sum can differ slightly from the KPI sheet when ORT / hour adjustments are applied.'):'<p>🎉 No lag in this period.</p>'))}
+function me(){const a=D.agents.find(x=>x.id===S.me);
+ const sel=`<select data-me><option value="">— Select agent —</option>${D.agents.map(x=>`<option value="${x.id}" ${S.me===x.id?'selected':''}>${esc(x.name)}</option>`).join('')}</select>`;
+ if(!a)return`<div class="tb">${sel}</div><h3>Team – tap your card</h3><div class="kg">${D.agents.slice().sort((x,y)=>rankOf(x)-rankOf(y)).map(x=>`<div class="card ac" data-pick="${x.id}"><div class="av">${ini(x.name)}</div><div style="flex:1;min-width:0"><b>${esc(x.name)}</b><div class="stamp">Rank #${rankOf(x)} · ${x.grp}</div></div><div style="text-align:right"><b style="font-size:18px;color:var(--p1)">${N(x.final,2)}</b><div>${grd(x)}</div></div></div>`).join('')}</div>`;
+ const MX=D.agents[0].kpi.map((_,i)=>Math.max(0,...D.agents.map(x=>x.kpi[i].s).filter(isN)));
+ const hero=`<div class="hero"><div class="av">${ini(a.name)}</div><div><h2>${esc(a.name)}</h2><small>ID ${a.id} · ${a.grp} · TL ${esc(a.tl)} · Eligibility ${esc(a.elig)}</small></div><div class="hs"><div><b>#${rankOf(a)}</b><small>of ${D.agents.length}</small></div><div><b>${N(a.final,2)}</b><small>Final score</small></div><div><b>${N(a.score,2)}</b><small>Total / ${N(a.tot,0)}</small></div><div><b>${esc(a.grade)}</b><small>Grade</small></div></div></div>`;
+ const cards=a.kpi.map((k,i)=>{const s=st(k),p=PNL[k.k],tx=!(k.t>0)?'Score based':(k.low?'Target ≤ ':'Target ≥ ')+fv(k,k.t);
+  return`<div class="card kc ${p?'click':''}" style="--sc:${SC[s]}" ${p?`data-p="${p}"`:''}><div style="display:flex;justify-content:space-between;align-items:center"><span class="ico">${ICO[k.k]||'📌'}</span>${pill(s,stT[s])}</div><div class="stamp" style="margin-top:4px">${i+1}. ${k.k}</div><div class="big">${fv(k,k.v)}</div><div class="stamp">${tx}</div>${brow('Score',MX[i]>0&&isN(k.s)?k.s/MX[i]:0,N(k.s,2))}${p?'<div class="go">Tap for day-wise details →</div>':''}</div>`}).join('');
+ const pn=S.panel==='aht'?pAHT(a):S.panel==='csat'?pCSAT(a):S.panel==='login'?pLogin(a):'';
+ const ce=a.ce,fc=a.fcr,qz=a.quiz,es=a.esc,dk=a.dkb,ad=K(a,'Schedule Adherence'),lg=K(a,'Login Compliance'),br=K(a,'Break (extra)'),dh=K(a,'DKB Attendance');
+ const qv=x=>isN(x)?(x<=1?P(x):N(x,1)):'–',dc=(t,ic,b)=>`<div class="card"><h3>${ic} ${t}</h3>${b}</div>`;
+ const att=a.att.length?`<div class="cal">${a.att.map(x=>`<div class="${x.st}"><b>${x.d}</b><br>${x.st==='P'?x.calls+' calls':x.st==='A'?'Absent':'Off'}</div>`).join('')}</div><div class="stamp" style="margin-top:6px">Green present · Red absent · Grey day off</div>`:'<span class="stamp">No attendance rows for this agent.</span>';
+ const det=[dc('Audit Details','🔍',kvs([['Total audits',ce?N(ce.aud,0):'–'],['Pass',ce?N(ce.pass,0):'–'],['Fail',ce?N(ce.fail,0):'–'],['Critical error %',pcc(ce&&ce.ce,.02,1)],['Empathy accuracy',pcc(ce&&ce.emp,K(a,'Empathy').t>0?K(a,'Empathy').t:.9)]])),
+ dc('FCR · Quiz · Service Delivery','🧩',kvs([['FCR calls',fc?N(fc.calls,0):'–'],['FCR resolved',fc?N(fc.cnt,0):'–'],['FCR %',pcc(fc&&fc.pct,K(a,'FCR').t)],['Quiz average',qv(qz&&qz.avg)],['Quiz phases',qz?qz.ph.map(qv).join(' · '):'–'],['Service delivery',N(K(a,'Service Delivery').v,2)]])),
+ dc('Complaint & DKB','📣',kvs([['Escalation valid / invalid',es?N(es.val,0)+' / '+N(es.inv,0):'–'],['Escalation accuracy',P(K(a,'Complaint Escalation Accuracy').v)],['DKB present / absent',dk?dk.pres+' / '+dk.abs:'–'],['DKB %',pcc(dk&&dk.pct,.9)],['Health status',pill(st(dh),stT[st(dh)])]])),
+ dc('Attendance & Lag','🗓️',kvs([['Roster days',N(a.roster,0)],['Present / Absent',N(a.pres,0)+' / '+N(a.abs,0)],['Adherence',pcc(ad.v,ad.t>0?ad.t:1)],['Login compliance',P(lg.v)],['Lag time',isN(a.lag)?HMS(Math.round(a.lag*86400)):esc(a.lag||'–')],['Extra break',isN(br.v)?pill('c',T(br.v)):pill('g',esc(br.v||'None'))]])),
+ dc('AHT & CFS','📞',kvs([['Monthly AHT',N(K(a,'AHT (sec)').v,0)+' sec'],['CSAT / DSAT',a.cfs?N(a.cfs.m.cs,0)+' / '+N(a.cfs.m.ds,0):'–'],['CFS score',a.cfs?scp(a.cfs.m.sc):'–'],['Staff time',a.aht?HMS(a.aht.m.st):'–'],['AUX',a.aht?HMS(a.aht.m.aux):'–']])),
+ dc('Attendance calendar & calls','📅',att)].join('');
+ return`<div class="tb">${sel}<button class="btn sec" data-a="back">← All agents</button></div>${hero}<h3>KPI scorecard · 12 parameters</h3><div class="kg">${cards}</div>${pn}<h3>More details</h3><div class="kg" style="grid-template-columns:repeat(auto-fill,minmax(290px,1fr))">${det}</div>`}
 const MONS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],DIM=()=>{const[y,m]=D.meta.month.split('-');return new Date(+y,+m,0).getDate()},MON=()=>MONS[+D.meta.month.split('-')[1]-1];
 const HMS=s=>isN(s)?Math.floor(s/3600)+':'+String(Math.floor(s%3600/60)).padStart(2,'0')+':'+String(Math.round(s%60)).padStart(2,'0'):'–';
 function teamAgent(){const n=DIM(),cd=[],ad=[];let c1=0,c2=0,S1=0,A1=0,H=0,C=0;
@@ -273,29 +319,24 @@ function render(){const s=S.sec;$('#title').textContent=(SEC.find(x=>x[0]===s)||
 /* upload */
 let pend=null,can=false;
 function modal(h){$('#mbody').innerHTML=h;$('#modal').classList.add('on')}
-const tkv=()=>{try{return localStorage.getItem('ght')||''}catch(e){return''}};
-function upUI(msg){modal(`<h3>Update Data</h3><p class="stamp">Upload the updated Excel workbook. It is read in your browser; nothing is sent anywhere until you confirm.</p><p><input type="file" id="f" accept=".xlsx,.xlsm"></p><p><input type="password" id="pw" placeholder="Workbook password"></p><p><input type="password" id="tk" placeholder="GitHub token (editors only)" value="${esc(tkv())}"></p>${msg?`<p class="err">${esc(msg)}</p>`:''}<p id="pr" class="stamp"></p><div style="display:flex;gap:8px"><button class="btn" data-a="read">Read workbook</button><button class="btn sec" data-a="close">Cancel</button></div>`)}
-async function read(){const f=$('#f').files[0],pw=$('#pw').value;try{const t=$('#tk').value.trim();if(t)localStorage.setItem('ght',t)}catch(e){}if(!f)return upUI('Choose an Excel file first.');const pr=m=>{const e=$('#pr');if(e)e.textContent=m};
+const pwv=()=>{try{return localStorage.getItem('wpw')||''}catch(e){return''}};
+function upUI(msg){modal(`<h3>Update Data</h3><p class="stamp">Upload the updated Excel workbook. It is read in your browser; nothing is sent anywhere until you confirm.</p><p><input type="file" id="f" accept=".xlsx,.xlsm"></p><p><input type="password" id="pw" placeholder="Workbook password (jodi thake)" value="${esc(pwv())}"></p>${msg?`<p class="err">${esc(msg)}</p>`:''}<p id="pr" class="stamp"></p><div style="display:flex;gap:8px"><button class="btn" data-a="read">Read workbook</button><button class="btn sec" data-a="close">Cancel</button></div>`)}
+async function read(){const f=$('#f').files[0],pw=$('#pw').value;if(!f)return upUI('Choose an Excel file first.');const pr=m=>{const e=$('#pr');if(e)e.textContent=m};
  try{pr('Reading file…');const b=new Uint8Array(await f.arrayBuffer());if(typeof XLSX==='undefined')throw Object.assign(new Error('Spreadsheet reader failed to load. Check your connection and retry.'),{code:'lib'});
-  const d=await Decrypt.decrypt(b,pw,p=>pr('Unlocking… '+Math.round(p*100)+'%'));const r=Parse.parse(XLSX,d.bytes,pr);pend=r;
-  modal(`<h3>Preview</h3><p>✅ <b>${r.meta.agents}</b> agents found (${r.meta.regular} regular, ${r.meta.ojt} OJT)<br>Month: <b>${r.meta.month}</b> · Data up to: <b>${r.meta.dataUpTo||'–'}</b><br>Team average score: <b>${N(r.meta.avg,2)}</b></p>${r.warnings.map(w=>`<p class="warn">⚠ ${esc(w)}</p>`).join('')}<p class="stamp">Confirming publishes this data for everyone who opens the link.</p><div style="display:flex;gap:8px"><button class="btn" data-a="confirm">Confirm &amp; publish</button><button class="btn sec" data-a="close">Cancel</button></div>`)}
+  const d=await Decrypt.decrypt(b,pw,p=>pr('Unlocking… '+Math.round(p*100)+'%'));const r=Parse.parse(XLSX,d.bytes,pr);pend=r;try{if(pw)localStorage.setItem('wpw',pw)}catch(e){}
+  modal(`<h3>Preview</h3><p>✅ <b>${r.meta.agents}</b> agents found (${r.meta.regular} regular, ${r.meta.ojt} OJT)<br>Month: <b>${r.meta.month}</b> · Data up to: <b>${r.meta.dataUpTo||'–'}</b><br>Team average score: <b>${N(r.meta.avg,2)}</b></p>${r.warnings.map(w=>`<p class="warn">⚠ ${esc(w)}</p>`).join('')}<p class="stamp">Download korle data.json file pabe. Seta GitHub-e upload korle sobai notun data dekhbe.</p><div style="display:flex;gap:8px"><button class="btn" data-a="confirm">Download data.json</button><button class="btn sec" data-a="close">Cancel</button></div>`)}
  catch(e){upUI(e.code==='password'?'Wrong password. Please try again.':e.code==='missing'?'Missing sheet: '+e.message:e.code==='layout'?'Unrecognised layout: '+e.message:'Could not read file: '+e.message)}}
-async function confirm(){const r=pend,old=D;const tk=tkv();if(!tk)return upUI('GitHub token dite hobe (shudhu editor-der jonno).');
- const nd={meta:{...r.meta,uploadedAt:Date.now()},agents:r.agents,history:(old.history||[]).concat([{at:Date.now(),month:r.meta.month,upto:r.meta.dataUpTo,n:r.meta.agents,avg:r.meta.avg}]).slice(-60)};
- modal('<p>GitHub-e publish hochche…</p>');
- try{const host=location.hostname,o=CFG.owner||host.split('.')[0],rp=CFG.repo||location.pathname.split('/')[1],br=CFG.branch,api=`https://api.github.com/repos/${o}/${rp}/contents/data.json`,hd={Authorization:'Bearer '+tk,Accept:'application/vnd.github+json'};
-  const g=await fetch(api+'?ref='+br,{headers:hd});if(g.status===401)throw new Error('Token thik noy ba expire hoyeche.');
-  const sha=g.ok?(await g.json()).sha:undefined;
-  const p=await fetch(api,{method:'PUT',headers:hd,body:JSON.stringify({message:'Data update '+r.meta.month+' (up to '+r.meta.dataUpTo+')',content:btoa(unescape(encodeURIComponent(JSON.stringify(nd)))),sha,branch:br})});
-  if(!p.ok){const j=await p.json().catch(()=>({}));throw new Error((p.status===403||p.status===404?'Write permission nei, token-e Contents: Read and write lagbe, ar repo name thik thakte hobe. ':'')+(j.message||p.status))}
-  D=nd;render();modal('<p>✅ GitHub-e commit hoyeche. Public link-e proy 1 minute-e live hobe (GitHub Pages rebuild).</p><button class="btn" data-a="close">OK</button>')}catch(e){upUI('Publish failed: '+e.message)}}
-document.addEventListener('click',e=>{const t=e.target.closest('button,th');if(!t)return;
+function confirm(){const r=pend,old=D;const nd={meta:{...r.meta,uploadedAt:Date.now()},agents:r.agents,history:(old.history||[]).concat([{at:Date.now(),month:r.meta.month,upto:r.meta.dataUpTo,n:r.meta.agents,avg:r.meta.avg}]).slice(-60)};
+ const u=URL.createObjectURL(new Blob([JSON.stringify(nd)],{type:'application/json'})),a=document.createElement('a');a.href=u;a.download='data.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),3000);
+ modal('<h3>data.json download hoyeche ✅</h3><ol><li>GitHub-e <b>team-sparrow</b> repository kholun.</li><li><b>Add file → Upload files</b> click korun.</li><li>Download howa <b>data.json</b> drag kore din.</li><li><b>Commit changes</b> click korun.</li><li>1-2 minute por site-e <b>Ctrl+F5</b> korun.</li></ol><button class="btn" data-a="close">OK</button>')}
+document.addEventListener('click',e=>{const pk=e.target.closest('[data-pick]'),pc=e.target.closest('[data-p]');if(pk){S.me=pk.dataset.pick;S.panel=null;render();return}if(pc){S.panel=S.panel===pc.dataset.p?null:pc.dataset.p;render();const el=document.getElementById('panel');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});return}const t=e.target.closest('button,th');if(!t)return;
  if(t.classList.contains('btn')){const r=document.createElement('span'),b=t.getBoundingClientRect(),z=Math.max(b.width,b.height);r.className='rip';r.style.cssText=`width:${z}px;height:${z}px;left:${e.clientX-b.left-z/2}px;top:${e.clientY-b.top-z/2}px`;t.appendChild(r);setTimeout(()=>r.remove(),600)}
- const a=t.dataset.a;if(t.dataset.n){if(S.sec!==t.dataset.n){const f=$('#fly');f.classList.remove('go');void f.offsetWidth;f.classList.add('go')}S.sec=t.dataset.n;render()}else if(t.dataset.s){const[i,c]=t.dataset.s.split('|'),x=TB[i];x.d=x.sk==+c?-x.d:1;x.sk=+c;$('#tb-'+i).innerHTML=tbody(i)}else if(t.dataset.x)exp(t.dataset.x);
+ const a=t.dataset.a;if(t.dataset.n){if(S.sec!==t.dataset.n){flock()}S.sec=t.dataset.n;render()}else if(t.dataset.s){const[i,c]=t.dataset.s.split('|'),x=TB[i];x.d=x.sk==+c?-x.d:1;x.sk=+c;$('#tb-'+i).innerHTML=tbody(i)}else if(t.dataset.x)exp(t.dataset.x);
  else if(a==='theme'){const c=document.documentElement,d=(c.dataset.theme||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'))==='dark';c.dataset.theme=d?'light':'dark'}
- else if(a==='menu')$('#nav').classList.toggle('on');else if(a==='up')upUI();else if(a==='close')$('#modal').classList.remove('on');else if(a==='read')read();else if(a==='confirm')confirm()});
+ else if(a==='pclose'){S.panel=null;render()}else if(a==='back'){S.me='';S.panel=null;render()}else if(a==='menu')$('#nav').classList.toggle('on');else if(a==='up')upUI();else if(a==='close')$('#modal').classList.remove('on');else if(a==='read')read();else if(a==='confirm')confirm()});
 document.addEventListener('input',e=>{const i=e.target.dataset.q;if(i){TB[i].q=e.target.value;$('#tb-'+i).innerHTML=tbody(i)}});
-document.addEventListener('change',e=>{if('ag' in e.target.dataset){S.ag=e.target.value;render()}if('me' in e.target.dataset){S.me=e.target.value;render()}});
+document.addEventListener('change',e=>{if('ag' in e.target.dataset){S.ag=e.target.value;render()}if('me' in e.target.dataset){S.me=e.target.value;S.panel=null;render()}});
+try{localStorage.removeItem('ght')}catch(e){}const ad=()=>{$('#upb').style.display=location.hash==='#admin'?'':'none'};ad();addEventListener('hashchange',ad);
 fetch('data.json?'+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{D=d;render()}).catch(()=>{$('#view').innerHTML='<div class="card"><b>data.json load hoyni.</b> Site-ta GitHub Pages (ba kono web server) theke kholun, file theke noy.</div>'}).finally(()=>setTimeout(()=>$('#splash').classList.add('out'),900));
 })();
 </script></body></html>
