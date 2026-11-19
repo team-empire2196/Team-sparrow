@@ -1,30 +1,30 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Team Sparrow – Performance Dashboard</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237a3f1d'/%3E%3Cpath d='M12 38c4-12 16-18 28-14l8-6-2 10c3 3 4 8 2 12-6 6-16 8-24 4l-8 4z' fill='%23f6e3cc'/%3E%3Ccircle cx='41' cy='28' r='2' fill='%232a1a10'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%236b1f8f'/%3E%3Cpath d='M12 38c4-12 16-18 28-14l8-6-2 10c3 3 4 8 2 12-6 6-16 8-24 4l-8 4z' fill='%23f6e3cc'/%3E%3Ccircle cx='41' cy='28' r='2' fill='%232a1a10'/%3E%3C/svg%3E">
 <style>
-:root{--bg:#faf5ef;--card:#fff;--ink:#2a1a10;--mut:#7a6556;--line:#eadccd;--p1:#7a3f1d;--p2:#b4691f;--p3:#e0a76b;--soft:#f6e9db;--g:#2e8b57;--w:#d98e04;--c:#c0392b;--gold:#e3a72f;--sh:0 1px 3px rgba(60,30,10,.08);color-scheme:light}
-:root[data-theme=dark]{--bg:#17100b;--card:#231810;--ink:#f3e7da;--mut:#b79f8a;--line:#3a2a1d;--p1:#d89a5b;--p2:#c07a36;--p3:#8a5a2c;--soft:#2f2016;--g:#4cc38a;--w:#f0b43c;--c:#ee6a5a;--sh:0 1px 3px rgba(0,0,0,.4);color-scheme:dark}
-@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#17100b;--card:#231810;--ink:#f3e7da;--mut:#b79f8a;--line:#3a2a1d;--p1:#d89a5b;--p2:#c07a36;--p3:#8a5a2c;--soft:#2f2016;--g:#4cc38a;--w:#f0b43c;--c:#ee6a5a;--sh:0 1px 3px rgba(0,0,0,.4);color-scheme:dark}}
+:root{--bg:#fbf5fc;--card:#fff;--ink:#2a1233;--mut:#7a6588;--line:#e6d3ea;--p1:#6b1f8f;--p2:#b0237f;--p3:#d77ac9;--soft:#f3e6f6;--g:#2e8b57;--w:#d98e04;--c:#c0392b;--gold:#e3a72f;--sh:0 1px 3px rgba(60,10,70,.1);color-scheme:light}
+:root[data-theme=dark]{--bg:#150a1d;--card:#21122d;--ink:#f5e8f8;--mut:#bc9dc9;--line:#3d2350;--p1:#d58bf2;--p2:#e25cb5;--p3:#8e3f96;--soft:#2f1b3d;--g:#4cc38a;--w:#f0b43c;--c:#ee6a5a;--sh:0 1px 3px rgba(0,0,0,.4);color-scheme:dark}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#150a1d;--card:#21122d;--ink:#f5e8f8;--mut:#bc9dc9;--line:#3d2350;--p1:#d58bf2;--p2:#e25cb5;--p3:#8e3f96;--soft:#2f1b3d;--g:#4cc38a;--w:#f0b43c;--c:#ee6a5a;--sh:0 1px 3px rgba(0,0,0,.4);color-scheme:dark}}
 *{box-sizing:border-box}html,body{margin:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;display:flex;min-height:100vh}
-#splash{position:fixed;inset:0;background:linear-gradient(135deg,#4a230f,#9a5521);z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;transition:opacity .6s .9s,visibility 0s 1.5s}
+#splash{position:fixed;inset:0;background:linear-gradient(135deg,#3d0f5c,#a01f7c);z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;transition:opacity .6s .9s,visibility 0s 1.5s}
 #splash svg{width:96px;height:96px;animation:pop .8s ease both}#splash h1{margin:14px 0 0;font-size:26px;letter-spacing:.5px;animation:pop .8s .2s ease both}#splash.out{opacity:0;visibility:hidden}
 @keyframes pop{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:none}}
-nav{width:230px;background:linear-gradient(180deg,#5a2c12,#8a4a1e);color:#fff;padding:14px 10px;position:sticky;top:0;height:100vh;overflow:auto;flex:none;transition:transform .25s}
+nav{width:230px;background:linear-gradient(180deg,#42106a,#8f1f72);color:#fff;padding:14px 10px;position:sticky;top:0;height:100vh;overflow:auto;flex:none;transition:transform .25s}
 nav .br{display:flex;gap:10px;align-items:center;padding:4px 8px 14px;font-weight:700;font-size:16px}nav .br svg{width:38px;height:38px;flex:none}
-nav button{display:block;width:100%;text-align:left;background:none;border:0;color:#f6e3cc;padding:9px 12px;border-radius:8px;font:inherit;cursor:pointer;margin:2px 0;transition:background .2s,transform .2s}
+nav button{display:block;width:100%;text-align:left;background:none;border:0;color:#f3dcf5;padding:9px 12px;border-radius:8px;font:inherit;cursor:pointer;margin:2px 0;transition:background .2s,transform .2s}
 nav button:hover{background:rgba(255,255,255,.12);transform:translateX(2px)}nav button.on{background:rgba(255,255,255,.2);color:#fff;font-weight:600;box-shadow:inset 3px 0 var(--gold)}
 main{flex:1;min-width:0;padding:16px 20px 40px}
 header{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
 header h2{margin:0;font-size:22px}.stamp{color:var(--mut);font-size:12px}
 #menu{display:none}
 .btn{position:relative;overflow:hidden;border:0;border-radius:8px;padding:8px 14px;font:inherit;cursor:pointer;background:linear-gradient(135deg,var(--p1),var(--p2));color:#fff;transition:transform .15s,box-shadow .15s}
-.btn:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(120,60,20,.3)}.btn.sec{background:var(--soft);color:var(--ink);border:1px solid var(--line)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(140,30,150,.3)}.btn.sec{background:var(--soft);color:var(--ink);border:1px solid var(--line)}
 .rip{position:absolute;border-radius:50%;background:rgba(255,255,255,.5);transform:scale(0);animation:rp .6s linear;pointer-events:none}@keyframes rp{to{transform:scale(4);opacity:0}}
-.sec{animation:fi .4s ease both}@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+#fly{position:fixed;top:28%;left:-140px;width:96px;z-index:70;pointer-events:none;opacity:0;filter:drop-shadow(0 6px 8px rgba(0,0,0,.25))}#fly.go{animation:flyx 1.2s cubic-bezier(.4,.1,.6,.9)}@keyframes flyx{0%{left:-140px;opacity:0;transform:translateY(60px) rotate(-10deg)}12%{opacity:1}35%{transform:translateY(-20px) rotate(6deg)}65%{transform:translateY(25px) rotate(-6deg)}100%{left:105vw;opacity:0;transform:translateY(-50px) rotate(8deg)}}#fly .wing{transform-origin:30px 38px;animation:flap .16s infinite alternate}@keyframes flap{to{transform:scaleY(.35) rotate(10deg)}}.sec{animation:fi .4s ease both}@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));margin-bottom:14px}
 .g2{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-bottom:14px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:var(--sh);transition:transform .2s,box-shadow .2s;min-width:0}
-.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(80,40,10,.12)}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(80,20,90,.14)}
 .tile .l{color:var(--mut);font-size:12px}.tile b{display:block;font-size:24px;color:var(--p1);margin-top:2px}.tile small{color:var(--mut);font-size:11px}
 h3{margin:0 0 10px;font-size:15px;color:var(--p1)}
 .bar{height:10px;background:var(--soft);border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--p1),var(--p3));border-radius:6px;transition:width 1s ease}
@@ -37,14 +37,15 @@ th{background:var(--soft);color:var(--p1);cursor:pointer;position:sticky;top:0;u
 .aw{display:flex;gap:10px;align-items:center}.aw .ic{font-size:26px}.gold{color:var(--gold)}
 .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.cal div{border-radius:8px;padding:6px 2px;text-align:center;font-size:12px;border:1px solid var(--line)}.cal .P{background:color-mix(in srgb,var(--g) 18%,transparent)}.cal .A{background:color-mix(in srgb,var(--c) 20%,transparent)}.cal .O{background:var(--soft);color:var(--mut)}
 svg.ch{width:100%;height:auto;display:block}.dr{stroke-dasharray:1200;stroke-dashoffset:1200;animation:dw 1.4s ease forwards}@keyframes dw{to{stroke-dashoffset:0}}
-#modal{position:fixed;inset:0;background:rgba(20,10,5,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}#modal.on{display:flex}#modal .card{width:min(520px,100%);max-height:90vh;overflow:auto}
+#modal{position:fixed;inset:0;background:rgba(20,5,30,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}#modal.on{display:flex}#modal .card{width:min(520px,100%);max-height:90vh;overflow:auto}
 .warn{color:var(--w);font-size:12px}.err{color:var(--c);font-weight:600}
 @media(max-width:800px){nav{position:fixed;z-index:40;transform:translateX(-105%);left:0;top:0}nav.on{transform:none}#menu{display:inline-block}main{padding:12px}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.dr{stroke-dashoffset:0}#splash{display:none}}
+@media(prefers-reduced-motion:reduce){#fly{display:none}*{animation:none!important;transition:none!important}.dr{stroke-dashoffset:0}#splash{display:none}}
 </style></head><body>
 <div id="splash"><svg viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#fff" fill-opacity=".14"/><path d="M12 38c4-12 16-18 28-14l8-6-2 10c3 3 4 8 2 12-6 6-16 8-24 4l-8 4z" fill="#f6e3cc"/><circle cx="41" cy="28" r="2" fill="#2a1a10"/></svg><h1>Team Sparrow</h1></div>
 <nav id="nav"><div class="br"><svg viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#fff" fill-opacity=".16"/><path d="M12 38c4-12 16-18 28-14l8-6-2 10c3 3 4 8 2 12-6 6-16 8-24 4l-8 4z" fill="#f6e3cc"/><circle cx="41" cy="28" r="2" fill="#2a1a10"/></svg><span>Team Sparrow</span></div><div id="links"></div></nav>
 <main><header><div style="display:flex;gap:8px;align-items:center"><button class="btn sec" id="menu" data-a="menu">☰</button><h2 id="title"></h2></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sec" data-a="theme">◐ Theme</button><button class="btn" id="upb" data-a="up">Update Data</button></div></header><div class="stamp" id="stamp"></div><div id="view"></div></main>
+<div id="fly"><svg viewBox="0 0 64 64"><path d="M12 38c4-12 16-18 28-14l8-6-2 10c3 3 4 8 2 12-6 6-16 8-24 4l-8 4z" fill="#8b5a3c"/><path d="M22 44c6 3 14 2 20-3 1 4-1 7-4 9-6 3-13 2-16-6z" fill="#ead8c0"/><path class="wing" d="M20 36c4-12 16-16 24-10-3 8-12 14-24 10z" fill="#5a3722"/><circle cx="41" cy="28" r="2" fill="#fff"/><circle cx="41.6" cy="28" r="1" fill="#000"/><path d="M48 21l9 3-9 3z" fill="#e3a72f"/></svg></div>
 <div id="modal"><div class="card" id="mbody"></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
@@ -167,7 +168,7 @@ const T=v=>isN(v)?Math.floor(v/3600)+'h '+String(Math.floor(v%3600/60)).padStart
 const avg=a=>{const x=a.filter(isN);return x.length?x.reduce((s,b)=>s+b,0)/x.length:null};
 const K=(a,n)=>a.kpi.find(k=>k.k===n)||{};
 const AHTT=180,QUAL=1.97;
-const SEC=[['dash','Dashboard'],['me','My Performance'],['audit','Audit Details'],['emp','Parameter Empathy'],['fcr','FCR, Quiz and SD'],['dkb','Complaint and DKB'],['lag','Lag and Adherence'],['aht','AHT and CFS']];
+const SEC=[['dash','Dashboard'],['me','My Performance'],['audit','Audit Details'],['emp','Parameter Empathy'],['fcr','FCR, Quiz and SD'],['dkb','Complaint and DKB'],['lag','Lag and Adherence'],['aht','Overall & Week CFS/AHT'],['dwise','Day Wise CFS/AHT']];
 let S={sec:'dash',ag:'all',me:'',cur:0};const TB={};
 const pill=(c,t)=>`<span class="pill p${c}">${t}</span>`;
 function st(k){const v=k.v,t=k.t;if(isN(v)&&isN(t)){const ok=k.low?v<=t:v>=t;return ok?'g':(k.s>0?'w':'c')}return isN(k.s)?(k.s>0?'g':'c'):'n'}
@@ -247,7 +248,7 @@ const WK=[[1,7],[8,14],[15,21],[22,28],[29,31]];
 const wkC=(a,w)=>{if(!a.cfs)return null;const x=a.cfs.days.filter(z=>z.d>=w[0]&&z.d<=w[1]),cs=x.reduce((s,z)=>s+z.cs,0),ds=x.reduce((s,z)=>s+z.ds,0);return{cs,ds,sc:cs+ds?cs/(cs+ds):null}};
 const wkA=(a,w)=>{if(!a.aht)return null;const x=a.aht.days.filter(z=>z.d>=w[0]&&z.d<=w[1]),st=x.reduce((s,z)=>s+(z.st||0),0),au=x.reduce((s,z)=>s+(z.aux||0),0);let h=0,c=0;x.forEach(z=>{if(isN(z.aht)&&z.aht>0){const q=(z.st||0)-(z.aux||0);h+=q;c+=q/z.aht}});return{st,au,aht:c?h/c:null}};
 const scp=sc=>isN(sc)?pill(sc>=.9?'g':sc>=.85?'w':'c',(sc*100).toFixed(1)+'%'):'–',ahp=v=>isN(v)?pill(v<=AHTT?'g':'c',Math.round(v)):'–';
-function ahtPage(){const TM=teamAgent(),rows=[TM,...D.agents],n=DIM(),m=MON(),wg=WK.filter(w=>w[0]<=n).map(w=>[w[0],Math.min(w[1],n)]);
+function ahtPage(part){const TM=teamAgent(),rows=[TM,...D.agents],n=DIM(),m=MON(),wg=WK.filter(w=>w[0]<=n).map(w=>[w[0],Math.min(w[1],n)]);
  const sum=tbl('aht',[nameC,{h:'AHT (sec)',v:a=>K(a,'AHT (sec)').v,r:a=>N(K(a,'AHT (sec)').v,0)},{h:'AHT status',v:a=>stT[st(K(a,'AHT (sec)'))],r:a=>pill(st(K(a,'AHT (sec)')),stT[st(K(a,'AHT (sec)'))])},pcT('CSAT / CFS',a=>K(a,'CSAT / CFS').v,.9),{h:'CSAT status',v:a=>stT[st(K(a,'CSAT / CFS'))],r:a=>pill(st(K(a,'CSAT / CFS')),stT[st(K(a,'CSAT / CFS'))])},{h:'Month CSAT',v:a=>a.cfs&&a.cfs.m.cs},{h:'Month DSAT',v:a=>a.cfs&&a.cfs.m.ds},{h:'Staff time',v:a=>a.aht&&a.aht.m.st,r:a=>HMS(a.aht&&a.aht.m.st)},{h:'AUX',v:a=>a.aht&&a.aht.m.aux,r:a=>HMS(a.aht&&a.aht.m.aux)}],D.agents,note(''));
  const wc=[nameC],wa=[nameC];wg.forEach((w,i)=>{const L='W'+(i+1);wc.push({h:'CSAT',hx:L+' CSAT',v:a=>(wkC(a,w)||{}).cs},{h:'DSAT',hx:L+' DSAT',v:a=>(wkC(a,w)||{}).ds},{h:'Score',hx:L+' Score',v:a=>{const x=wkC(a,w);return x&&isN(x.sc)?Math.round(x.sc*1000)/10:null},r:a=>{const x=wkC(a,w);return x?scp(x.sc):'–'}});
   wa.push({h:'Staff time',hx:L+' Staff',v:a=>(wkA(a,w)||{}).st,r:a=>HMS((wkA(a,w)||{}).st)},{h:'AUX',hx:L+' AUX',v:a=>(wkA(a,w)||{}).au,r:a=>HMS((wkA(a,w)||{}).au)},{h:'AHT',hx:L+' AHT',v:a=>{const x=wkA(a,w);return x&&isN(x.aht)?Math.round(x.aht):null},r:a=>{const x=wkA(a,w);return x?ahp(x.aht):'–'}})});
@@ -257,14 +258,14 @@ function ahtPage(){const TM=teamAgent(),rows=[TM,...D.agents],n=DIM(),m=MON(),wg
   dc.push({h:'CSAT',hx:P2+'CSAT',v:a=>f(a)?f(a).cs:null},{h:'DSAT',hx:P2+'DSAT',v:a=>f(a)?f(a).ds:null},{h:'Score',hx:P2+'Score',v:a=>f(a)&&isN(f(a).sc)?Math.round(f(a).sc*1000)/10:null,r:a=>{const x=f(a);return x&&x.cs+x.ds>0?scp(x.sc):'–'}});
   da.push({h:'Staff Time',hx:P2+'Staff',v:a=>g(a)?g(a).st:null,r:a=>{const x=g(a);return x&&x.st?HMS(x.st):'–'}},{h:'AUX',hx:P2+'AUX',v:a=>g(a)?g(a).aux:null,r:a=>{const x=g(a);return x&&x.st?HMS(x.aux):'–'}},{h:'AHT',hx:P2+'AHT',v:a=>g(a)&&isN(g(a).aht)?Math.round(g(a).aht):null,r:a=>{const x=g(a);return x?ahp(x.aht):'–'}})}
  const dgrp=[['',1],['Monthly',3],...Array.from({length:n},(_,i)=>[`${i+1} ${m}`,3])];
- return sum+'<br><h3>Week-wise CFS</h3>'+tbl('cfsw',wc,rows,note(''),wgrp)+'<br><h3>Week-wise AHT</h3>'+tbl('ahtw',wa,rows,'AHT = total handling time ÷ calls (calls derived from daily AHT tracker). Target '+AHTT+' sec.',wgrp)+'<br><h3>Day-wise CFS</h3>'+tbl('cfsd',dc,rows,note(''),dgrp)+'<br><h3>Day-wise AHT</h3>'+tbl('ahtd',da,rows,'Staff time, AUX and AHT per day (same layout as Excel). Green = within '+AHTT+' sec.',dgrp)}
+ const out=sum+'<br><h3>Week-wise CFS</h3>'+tbl('cfsw',wc,rows,note(''),wgrp)+'<br><h3>Week-wise AHT</h3>'+tbl('ahtw',wa,rows,'AHT = total handling time ÷ calls (calls derived from daily AHT tracker). Target '+AHTT+' sec.',wgrp)+'\u0001'+'<br><h3>Day-wise CFS</h3>'+tbl('cfsd',dc,rows,note(''),dgrp)+'<br><h3>Day-wise AHT</h3>'+tbl('ahtd',da,rows,'Staff time, AUX and AHT per day (same layout as Excel). Green = within '+AHTT+' sec.',dgrp);return out.split('\u0001')[part?1:0]}
 const sect={
 audit:()=>tbl('audit',[nameC,{h:'Total audits',v:a=>a.ce&&a.ce.aud},{h:'Pass',v:a=>a.ce&&a.ce.pass},{h:'Fail',v:a=>a.ce&&a.ce.fail},pcT('CE %',a=>a.ce&&a.ce.ce,.02,1),pcT('Empathy accuracy',a=>a.ce&&a.ce.emp,.9),{h:'KPI CE',v:a=>K(a,'Critical Error %').v,r:a=>P(K(a,'Critical Error %').v)}],D.agents,note('audit')),
 emp:()=>tbl('emp',[nameC,{h:'Type',v:a=>a.grp},pcT('Empathy %',a=>K(a,'Empathy').v,.9),{h:'Target',v:a=>K(a,'Empathy').t,r:a=>P(K(a,'Empathy').t)},{h:'KPI score',v:a=>K(a,'Empathy').s,r:a=>N(K(a,'Empathy').s,2)},{h:'Status',v:a=>stT[st(K(a,'Empathy'))],r:a=>pill(st(K(a,'Empathy')),stT[st(K(a,'Empathy'))])}],D.agents,note('audit')+' · Target 90% (61% for OJT)'),
 fcr:()=>tbl('fcr',[nameC,{h:'Calls',v:a=>a.fcr&&a.fcr.calls},{h:'FCR count',v:a=>a.fcr&&a.fcr.cnt},pcT('FCR %',a=>a.fcr&&a.fcr.pct,.93),{h:'Quiz avg',v:a=>a.quiz&&a.quiz.avg,r:a=>P(a.quiz&&a.quiz.avg)},...[0,1,2,3].map(i=>({h:'Phase 0'+(i+1),v:a=>a.quiz&&a.quiz.ph[i]})),{h:'Service delivery',v:a=>K(a,'Service Delivery').v,r:a=>N(K(a,'Service Delivery').v,2)}],D.agents,note('quiz')),
 dkb:()=>tbl('dkb',[nameC,{h:'Escalation valid',v:a=>a.esc&&a.esc.val},{h:'Invalid',v:a=>a.esc&&a.esc.inv},{h:'Escalation accuracy',v:a=>K(a,'Complaint Escalation Accuracy').v,r:a=>P(K(a,'Complaint Escalation Accuracy').v)},{h:'DKB present',v:a=>a.dkb&&a.dkb.pres},{h:'DKB absent',v:a=>a.dkb&&a.dkb.abs},pcT('DKB %',a=>a.dkb&&a.dkb.pct,.9),{h:'Health status',v:a=>stT[st(K(a,'DKB Attendance'))],r:a=>pill(st(K(a,'DKB Attendance')),stT[st(K(a,'DKB Attendance'))])}],D.agents,note('dkb')+' · Escalation: '+esc((D.meta.notes||{}).esc||'–')),
 lag:()=>tbl('lag',[nameC,pcT('Adherence %',a=>K(a,'Schedule Adherence').v,1),pcT('Login compliance',a=>K(a,'Login Compliance').v,.95),{h:'Lag time',v:a=>a.lag,r:a=>isN(a.lag)?T(Math.round(a.lag*86400)):esc(a.lag||'–')},{h:'Extra break',v:a=>K(a,'Break (extra)').v,r:a=>isN(K(a,'Break (extra)').v)?pill('c',T(K(a,'Break (extra)').v)):pill('g',esc(K(a,'Break (extra)').v||'None'))},{h:'KPI (adherence)',v:a=>K(a,'Schedule Adherence').s,r:a=>N(K(a,'Schedule Adherence').s,2)}],D.agents,note('')),
-aht:ahtPage};
+aht:()=>ahtPage(0),dwise:()=>ahtPage(1)};
 function render(){const s=S.sec;$('#title').textContent=(SEC.find(x=>x[0]===s)||[])[1];
  $('#stamp').innerHTML=`Team Sparrow · ${esc(D.meta.month)} · `+note(s==='audit'||s==='emp'?'audit':s==='dkb'?'dkb':s==='fcr'?'quiz':'');
  $('#links').innerHTML=SEC.map(x=>`<button class="${x[0]===s?'on':''}" data-n="${x[0]}">${x[1]}</button>`).join('');
@@ -290,7 +291,7 @@ async function confirm(){const r=pend,old=D;const tk=tkv();if(!tk)return upUI('G
   D=nd;render();modal('<p>✅ GitHub-e commit hoyeche. Public link-e proy 1 minute-e live hobe (GitHub Pages rebuild).</p><button class="btn" data-a="close">OK</button>')}catch(e){upUI('Publish failed: '+e.message)}}
 document.addEventListener('click',e=>{const t=e.target.closest('button,th');if(!t)return;
  if(t.classList.contains('btn')){const r=document.createElement('span'),b=t.getBoundingClientRect(),z=Math.max(b.width,b.height);r.className='rip';r.style.cssText=`width:${z}px;height:${z}px;left:${e.clientX-b.left-z/2}px;top:${e.clientY-b.top-z/2}px`;t.appendChild(r);setTimeout(()=>r.remove(),600)}
- const a=t.dataset.a;if(t.dataset.n){S.sec=t.dataset.n;render()}else if(t.dataset.s){const[i,c]=t.dataset.s.split('|'),x=TB[i];x.d=x.sk==+c?-x.d:1;x.sk=+c;$('#tb-'+i).innerHTML=tbody(i)}else if(t.dataset.x)exp(t.dataset.x);
+ const a=t.dataset.a;if(t.dataset.n){if(S.sec!==t.dataset.n){const f=$('#fly');f.classList.remove('go');void f.offsetWidth;f.classList.add('go')}S.sec=t.dataset.n;render()}else if(t.dataset.s){const[i,c]=t.dataset.s.split('|'),x=TB[i];x.d=x.sk==+c?-x.d:1;x.sk=+c;$('#tb-'+i).innerHTML=tbody(i)}else if(t.dataset.x)exp(t.dataset.x);
  else if(a==='theme'){const c=document.documentElement,d=(c.dataset.theme||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'))==='dark';c.dataset.theme=d?'light':'dark'}
  else if(a==='menu')$('#nav').classList.toggle('on');else if(a==='up')upUI();else if(a==='close')$('#modal').classList.remove('on');else if(a==='read')read();else if(a==='confirm')confirm()});
 document.addEventListener('input',e=>{const i=e.target.dataset.q;if(i){TB[i].q=e.target.value;$('#tb-'+i).innerHTML=tbody(i)}});
