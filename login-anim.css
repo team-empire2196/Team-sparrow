@@ -1,0 +1,79 @@
+/* ===== login-anim.css  –  Paint-splash login intro (add-on, does not touch your existing styles) ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+:root{--la-navy:#0b1f4d;--la-navy2:#14306e;--la-gold:#f2b705;--la-gold2:#ffd54a;--la-text:#fff}
+html.la-lock{overflow:hidden}
+.la-root{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;font-family:'Poppins',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(--la-text);overflow:hidden;opacity:0;transition:opacity .45s ease}
+.la-root.la-on{display:flex;opacity:1}
+.la-root *{box-sizing:border-box}
+.la-dim{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(3,8,28,.18),rgba(3,8,28,.5));pointer-events:none}
+.la-stage{position:absolute;inset:0;pointer-events:none}
+.la-fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;transition:opacity .8s ease}
+.la-fx.la-fade{opacity:0}
+/* ---- boy ---- */
+.la-boy{position:absolute;left:0;bottom:max(7vh,22px);height:clamp(190px,40vmin,340px);aspect-ratio:220/320;will-change:transform,opacity;transition:opacity .55s ease;transform:translateX(-60vw)}
+.la-boy.la-out{opacity:0}
+.la-boy-svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 10px 14px rgba(0,0,0,.35))}
+@keyframes la-swA{0%,100%{transform:rotate(-27deg)}50%{transform:rotate(27deg)}}
+@keyframes la-swB{0%,100%{transform:rotate(27deg)}50%{transform:rotate(-27deg)}}
+@keyframes la-carry{0%,100%{transform:rotate(7deg)}50%{transform:rotate(-7deg)}}
+@keyframes la-bob{from{transform:translateY(0)}to{transform:translateY(-5px)}}
+.la-walking .la-legA{animation:la-swA .62s ease-in-out infinite}
+.la-walking .la-legB{animation:la-swB .62s ease-in-out infinite}
+.la-walking .la-armB{animation:la-swA .62s ease-in-out infinite}
+.la-walking .la-arm{animation:la-carry .62s ease-in-out infinite}
+.la-walking .la-body{animation:la-bob .31s ease-in-out infinite alternate}
+@keyframes la-tArm{0%{transform:rotate(0)}38%{transform:rotate(58deg)}64%{transform:rotate(-112deg)}100%{transform:rotate(-14deg)}}
+@keyframes la-tBucket{0%{transform:rotate(0)}38%{transform:rotate(18deg)}64%{transform:rotate(-100deg)}100%{transform:rotate(-8deg)}}
+@keyframes la-tBody{0%{transform:rotate(0)}38%{transform:rotate(-7deg)}64%{transform:rotate(9deg)}100%{transform:rotate(0)}}
+.la-throw .la-arm{animation:la-tArm 1.15s cubic-bezier(.45,0,.25,1) forwards}
+.la-throw .la-bucket{animation:la-tBucket 1.15s cubic-bezier(.45,0,.25,1) forwards}
+.la-throw .la-body{animation:la-tBody 1.15s ease-in-out forwards}
+/* ---- paint splash ---- */
+.la-splash{position:absolute;left:50%;top:50%;width:min(max(112vmin,540px),1000px);height:auto;transform:translate(-50%,-50%);overflow:visible;opacity:0;transition:opacity .9s ease}
+.la-splash.la-show{opacity:1}
+.la-splash .la-sp-main{transform-origin:50% 50%;transform-box:view-box}
+.la-splash.la-pop .la-sp-main{animation:la-splat .75s cubic-bezier(.2,1.2,.35,1) both}
+@keyframes la-splat{0%{transform:scale(.12) rotate(-10deg);opacity:0}40%{opacity:1}65%{transform:scale(1.1) rotate(2deg)}100%{transform:scale(1) rotate(0)}}
+.la-splash .la-dot{transform-box:fill-box;transform-origin:center;transform:scale(0)}
+.la-splash.la-pop .la-dot{animation:la-dot .5s var(--d,0ms) cubic-bezier(.2,1.5,.4,1) both}
+@keyframes la-dot{from{transform:scale(0)}to{transform:scale(1)}}
+.la-splash .la-drip{transform-box:fill-box;transform-origin:50% 0;transform:scaleY(0)}
+.la-splash.la-pop .la-drip{animation:la-drip 1.5s var(--d,300ms) cubic-bezier(.5,.1,.5,1) both}
+@keyframes la-drip{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.la-splash.la-gone{opacity:0}
+/* ---- glass card ---- */
+.la-card{position:relative;z-index:3;width:min(92vw,410px);max-height:94vh;max-height:94dvh;overflow:auto;padding:34px 30px 28px;border-radius:26px;pointer-events:none;
+ background:linear-gradient(145deg,rgba(255,255,255,.17),rgba(255,255,255,.05)),rgba(11,31,77,.38);
+ -webkit-backdrop-filter:blur(20px) saturate(155%);backdrop-filter:blur(20px) saturate(155%);
+ border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 28px 70px rgba(0,0,0,.55),0 0 0 1px rgba(242,183,5,.14),0 0 60px rgba(242,183,5,.12);
+ clip-path:circle(0% at 50% 50%);opacity:0;transform:scale(.7);filter:blur(14px)}
+.la-reveal .la-card{animation:la-open 1.05s cubic-bezier(.2,.85,.25,1) forwards;pointer-events:auto}
+@keyframes la-open{0%{clip-path:circle(0% at 50% 50%);opacity:0;transform:scale(.7);filter:blur(14px)}35%{opacity:1}100%{clip-path:circle(160% at 50% 50%);opacity:1;transform:scale(1);filter:blur(0)}}
+.la-done .la-card{animation:none;clip-path:none;opacity:1;transform:none;filter:none;pointer-events:auto}
+.la-card h2{margin:0 0 4px;font-size:clamp(24px,6vw,30px);font-weight:700;letter-spacing:.2px;text-align:center}
+.la-card h2::after{content:"";display:block;width:54px;height:4px;border-radius:4px;margin:10px auto 0;background:linear-gradient(90deg,var(--la-gold2),var(--la-gold))}
+.la-sub{margin:12px 0 22px;text-align:center;font-size:14px;color:rgba(255,255,255,.72)}
+.la-field{position:relative;margin-bottom:14px}
+.la-field label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.la-field>svg.la-ic{position:absolute;left:15px;top:50%;width:18px;height:18px;transform:translateY(-50%);stroke:var(--la-gold2);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.la-field input{width:100%;padding:14px 46px 14px 45px;font:500 15px 'Poppins',system-ui,sans-serif;color:#fff;background:rgba(8,18,50,.45);border:1px solid rgba(255,255,255,.2);border-radius:14px;outline:none;transition:border-color .2s,box-shadow .2s,background .2s}
+.la-field input::placeholder{color:rgba(255,255,255,.55)}
+.la-field input:focus{border-color:var(--la-gold);box-shadow:0 0 0 4px rgba(242,183,5,.22);background:rgba(8,18,50,.6)}
+.la-eye{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:36px;height:36px;border:0;background:transparent;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7)}
+.la-eye:hover{color:var(--la-gold2);background:rgba(255,255,255,.08)}
+.la-eye svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.la-err{display:none;margin:0 0 12px;padding:9px 12px;border-radius:10px;font-size:13px;color:#ffc9c9;background:rgba(255,80,80,.14);border:1px solid rgba(255,130,130,.4)}
+.la-err.la-show{display:block}
+.la-card.la-shake{animation:la-shake .45s}
+@keyframes la-shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-9px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(4px)}}
+.la-btn{width:100%;margin-top:4px;padding:14px;border:0;border-radius:14px;cursor:pointer;font:700 16px 'Poppins',system-ui,sans-serif;color:var(--la-navy);background:linear-gradient(135deg,var(--la-gold2),var(--la-gold) 55%,#d99a00);box-shadow:0 10px 26px rgba(242,183,5,.38);transition:transform .15s,box-shadow .2s,opacity .2s}
+.la-btn:hover{transform:translateY(-1px);box-shadow:0 14px 32px rgba(242,183,5,.5)}
+.la-btn:active{transform:scale(.98)}
+.la-btn:disabled{opacity:.75;cursor:default}
+.la-close{position:absolute;top:10px;right:12px;width:34px;height:34px;border:0;border-radius:50%;background:rgba(255,255,255,.1);color:#fff;font-size:20px;line-height:1;cursor:pointer}
+.la-close:hover{background:rgba(255,255,255,.2)}
+.la-skip{position:absolute;left:50%;bottom:max(2.5vh,14px);transform:translateX(-50%);z-index:4;pointer-events:auto;border:1px solid rgba(255,255,255,.25);background:rgba(8,18,50,.4);color:rgba(255,255,255,.85);font:500 12px 'Poppins',sans-serif;padding:7px 16px;border-radius:99px;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:opacity .4s}
+.la-done .la-skip,.la-skip.la-hide{opacity:0;pointer-events:none}
+@media(max-width:480px){.la-card{padding:28px 20px 22px;border-radius:22px}}
+@media(max-height:560px){.la-card{padding:20px 22px}.la-sub{margin-bottom:12px}}
+@media(prefers-reduced-motion:reduce){.la-boy,.la-splash,.la-fx{display:none}.la-card{animation:none!important;clip-path:none;opacity:1;transform:none;filter:none;pointer-events:auto}}

@@ -1,0 +1,23 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Login animation – demo (stand-in for your existing page)</title>
+<link rel="stylesheet" href="../login-anim.css">
+<style>
+ html,body{margin:0;height:100%;background:#050914;font-family:system-ui,sans-serif;color:#fff}
+ #galaxy{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+ .page{position:relative;z-index:1;min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px}
+ .page button{padding:14px 34px;border:0;border-radius:12px;background:#f2b705;color:#0b1f4d;font:700 17px system-ui;cursor:pointer}
+</style></head><body>
+<canvas id="galaxy"></canvas>
+<div class="page"><h1>Team Empire</h1><p>(Your existing galaxy page – this is only a stand-in for testing)</p><button data-login-anim>Login</button></div>
+<script>
+/* stand-in galaxy – replace with YOUR existing galaxy code; do not copy this */
+const c=document.getElementById('galaxy'),x=c.getContext('2d');let W,H,S=[];
+function rs(){W=c.width=innerWidth;H=c.height=innerHeight;S=Array.from({length:260},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.6+.2,p:Math.random()*6}))}
+rs();addEventListener('resize',rs);
+(function f(t){const g=x.createRadialGradient(W*.3,H*.4,0,W*.3,H*.4,W*.7);g.addColorStop(0,'#2a1f6b');g.addColorStop(.5,'#0d1a4a');g.addColorStop(1,'#050914');x.fillStyle=g;x.fillRect(0,0,W,H);
+ const g2=x.createRadialGradient(W*.8,H*.7,0,W*.8,H*.7,W*.45);g2.addColorStop(0,'rgba(120,60,200,.35)');g2.addColorStop(1,'transparent');x.fillStyle=g2;x.fillRect(0,0,W,H);
+ S.forEach(s=>{x.globalAlpha=.5+.5*Math.sin(t/700+s.p);x.fillStyle='#fff';x.beginPath();x.arc(s.x,s.y,s.r,0,7);x.fill()});x.globalAlpha=1;requestAnimationFrame(f)})(0);
+</script>
+<script>window.LOGIN_ANIM_CONFIG={users:[{username:'Team Sparrow',password:'Butterfly'}],redirectUrl:'dashboard.html'};</script>
+<script src="../login-anim.js"></script>
+</body></html>
